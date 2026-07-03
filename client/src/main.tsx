@@ -7,11 +7,15 @@ import App from './App'
 import { AuthProvider } from './context/AuthContext'
 import './index.css'
 
+import axios from 'axios'
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: { retry: 1, staleTime: 1000 * 60 * 5 },
   },
 })
+
+axios.defaults.baseURL = import.meta.env.VITE_API_URL || ''
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
