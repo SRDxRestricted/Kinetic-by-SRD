@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Leaderboard | Kinetic Typing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Geist:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        
+        .glass-panel {
+            background: rgba(24, 31, 41, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .gold-glow { box-shadow: 0 0 40px rgba(212, 175, 55, 0.15); }
+        .silver-glow { box-shadow: 0 0 30px rgba(192, 192, 192, 0.1); }
+        .bronze-glow { box-shadow: 0 0 25px rgba(205, 127, 50, 0.1); }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-up {
+            animation: fadeUp 0.3s ease-out forwards;
+        }
+
+        /* Custom scrollbar for dashboard */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #32353c; border-radius: 10px; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#002e6a",
+                        "inverse-surface": "#e1e2ec",
+                        "surface-variant": "#32353c",
+                        "primary": "#adc6ff",
+                        "surface-bright": "#363941",
+                        "primary-fixed-dim": "#adc6ff",
+                        "surface-tint": "#adc6ff",
+                        "secondary-container": "#434a53",
+                        "on-tertiary-container": "#461f00",
+                        "on-tertiary-fixed": "#311400",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#001a42",
+                        "on-secondary-fixed-variant": "#404750",
+                        "on-primary-fixed-variant": "#004395",
+                        "inverse-on-surface": "#2e3038",
+                        "primary-container": "#4d8eff",
+                        "inverse-primary": "#005ac2",
+                        "surface-container-lowest": "#0b0e15",
+                        "background": "#10131a",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#dce3ee",
+                        "on-tertiary": "#502400",
+                        "on-secondary": "#2a313a",
+                        "surface-container-high": "#272a31",
+                        "tertiary": "#ffb786",
+                        "tertiary-fixed": "#ffdcc6",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#191b23",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "on-background": "#e1e2ec",
+                        "on-surface-variant": "#c2c6d6",
+                        "secondary-fixed-dim": "#c0c7d2",
+                        "outline-variant": "#424754",
+                        "surface-dim": "#10131a",
+                        "on-primary-container": "#00285d",
+                        "surface": "#10131a",
+                        "tertiary-container": "#df7412",
+                        "primary-fixed": "#d8e2ff",
+                        "surface-container-highest": "#32353c",
+                        "outline": "#8c909f",
+                        "on-secondary-container": "#b2b9c4",
+                        "secondary": "#c0c7d2",
+                        "on-surface": "#e1e2ec",
+                        "surface-container": "#1d2027",
+                        "on-secondary-fixed": "#151c24"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "stack-lg": "32px",
+                        "margin-mobile": "16px",
+                        "section-gap": "64px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-base": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "label-caps": ["Geist"],
+                        "mono-typing": ["JetBrains Mono"],
+                        "headline-md": ["Geist"],
+                        "headline-md-mobile": ["Geist"]
+                    },
+                    "fontSize": {
+                        "body-base": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "mono-typing": ["32px", {"lineHeight": "48px", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-md-mobile": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-base antialiased min-h-screen overflow-x-hidden">
+<!-- Sidebar Navigation Shell -->
+<aside class="hidden md:flex h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant/10 flex-col p-stack-md gap-stack-sm z-50">
+<div class="flex items-center gap-3 px-2 mb-8">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined font-bold">bolt</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md text-primary tracking-tighter">Kinetic</h1>
+<p class="text-[10px] text-on-surface-variant/60 font-label-caps tracking-[0.2em] uppercase">Precision Typing</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[22px]">home</span>
+<span class="font-medium">Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[22px]">keyboard</span>
+<span class="font-medium">Typing Test</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[22px]">history</span>
+<span class="font-medium">History</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[22px]">analytics</span>
+<span class="font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary font-bold bg-primary/10 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+<span class="font-medium">Leaderboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[22px]">person</span>
+<span class="font-medium">Profile</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[22px]">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant/10">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full border border-primary/20 p-0.5 overflow-hidden">
+<img class="w-full h-full object-cover rounded-full" data-alt="A hyper-realistic close-up portrait of a professional e-sports player in a dimly lit gaming environment. The lighting is dominated by neon blue and cool white highlights reflecting off high-tech equipment. The subject has a focused expression, wearing sleek modern headphones. The background features a soft bokeh of computer hardware and minimalist studio design, consistent with a high-performance dark-mode interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAbkr5-vcnksEkHCmFaGgIAWWU86OLJh7OGZQhSMw9ir22JLgzdM9putPdYfivVWFsiS-f4sW-avkxXS-I_LJK8iCczrQNHXVjWZYdgmMY8yznppJNNgtKb5Z3Y3TPa6YRJCEDmHiEFoEFPLymQ_hdwfo7IzuPf5SMPX_MLCztwaVlmz_ji0ciYEKxJ2U72KqfbT7GuOBadTkjV1c9jSGhdHys_v-rUBHD2d2ZV3PdTm3qe9NDKXKXEXC8S95JkaKJPca_VB5htwI"/>
+</div>
+<div class="overflow-hidden">
+<p class="text-on-surface font-bold text-sm truncate">Alex Rivera</p>
+<p class="text-on-surface-variant text-xs truncate">Rank: #142</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-64 min-h-screen relative p-gutter">
+
+<div class="max-w-container-max mx-auto relative z-10 animate-fade-up">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-stack-lg mb-stack-lg">
+<div>
+<h2 class="font-display-lg text-display-lg text-on-surface">Global Rankings</h2>
+<p class="text-on-surface-variant mt-2 max-w-xl">Competing with the world's fastest typists. Stats updated in real-time based on verified typing tests.</p>
+</div>
+<!-- Period Selector Tabs -->
+<div class="flex p-1 bg-surface-container-low rounded-xl border border-outline-variant/10">
+<button class="px-6 py-2 text-sm font-semibold rounded-lg bg-primary text-on-primary transition-all shadow-lg shadow-primary/20">Weekly</button>
+<button class="px-6 py-2 text-sm font-semibold text-on-surface-variant hover:text-on-surface transition-all rounded-lg">Monthly</button>
+<button class="px-6 py-2 text-sm font-semibold text-on-surface-variant hover:text-on-surface transition-all rounded-lg">All Time</button>
+</div>
+</header>
+<!-- Filters Row -->
+<div class="flex flex-wrap items-center gap-stack-sm mb-section-gap">
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-full border border-outline-variant/10 cursor-pointer hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[18px]">timer</span>
+<span class="text-sm font-medium">Duration: 60s</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-full border border-outline-variant/10 cursor-pointer hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[18px]">spellcheck</span>
+<span class="text-sm font-medium">Mode: Words</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-full border border-outline-variant/10 cursor-pointer hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[18px]">language</span>
+<span class="text-sm font-medium">Country: Global</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</div>
+<div class="ml-auto flex items-center gap-2 text-on-surface-variant/60">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+<span class="text-xs font-label-caps">Syncing Live</span>
+</div>
+</div>
+<!-- Top Three Podium -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-stack-lg items-end mb-section-gap">
+<!-- Rank 2 -->
+<div class="order-2 md:order-1 glass-panel p-stack-lg rounded-2xl silver-glow text-center flex flex-col items-center transition-transform hover:scale-[1.02] duration-300">
+<div class="relative mb-6">
+<div class="w-24 h-24 rounded-full border-4 border-secondary p-1">
+<img class="w-full h-full object-cover rounded-full" data-alt="A sophisticated headshot of a female tech professional in a futuristic office environment. Soft ambient lighting with deep navy and chrome color accents. The aesthetic is clean, professional, and minimalist, matching a high-end dark-mode UI design. Detailed sharp focus on facial features, expressing confidence and intelligence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACdliH4MjlM4_SSk9i3XvHPzbFi7kJrhokqsiekYN65NystYlM-ZnYgsuNQvYMmVVMW9fZYtdD0yBH8rPKtTj9_K0ovisSZEidsMPyH8LRR0h-pW2CZh_x5N8PkRzN69LceyQgCNUaRxizKJe1rFFTxykQ1lFvswrTaYcUXOFY5d6THu_lk0IsK8myNhwriGux5x6pwaXAhtLIInwk4TYHYVpCzweuXTbTvTGhVmOJm5nFOk3nq1Wiq5lUqsbfbIjOg_YzlB9YV2k"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-secondary text-on-secondary-fixed w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">2</div>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-1">LunaType</h3>
+<p class="text-secondary text-sm font-semibold mb-4">152 WPM</p>
+<div class="flex gap-4 w-full border-t border-outline-variant/10 pt-4 mt-2">
+<div class="flex-1">
+<p class="text-xs text-on-surface-variant font-label-caps">Accuracy</p>
+<p class="font-mono-typing text-lg">99.2%</p>
+</div>
+<div class="flex-1">
+<p class="text-xs text-on-surface-variant font-label-caps">Streak</p>
+<p class="font-mono-typing text-lg">42d</p>
+</div>
+</div>
+</div>
+<!-- Rank 1 -->
+<div class="order-1 md:order-2 glass-panel p-stack-lg rounded-2xl gold-glow text-center flex flex-col items-center transform scale-110 z-20 transition-transform hover:scale-[1.12] duration-300 border-primary/20">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-tertiary text-on-tertiary px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest shadow-xl shadow-tertiary/20">Grandmaster</div>
+<div class="relative mb-6">
+<div class="w-32 h-32 rounded-full border-4 border-tertiary p-1">
+<img class="w-full h-full object-cover rounded-full" data-alt="A portrait of a minimalist-styled creative professional with sharp features, set against a dark architectural background. Warm golden rim lighting contrasts with the deep obsidian environment. The style is cinematic and high-fidelity, embodying the elite status of a top performer in a precision-focused digital platform. Every detail from skin texture to the subtle glow of background lights is rendered with ultra-modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1OyfXb162C10m6iNRmeHXvFcHtXtDN2chPHkK461Z1HXUP0-XARbuCjHVlGk68GtR_wSG9gbT6ugbpCqy-lkellpo--r96cXBLy6jShnCKvYnJV6xm2tI5vFo255eAjemmoaOl-ELVqYWxW6e5BlzS-4cnDqfjQczDmy8ZIVYtvpo-KGI5RdeGV0zGXc2xNbRgbsfYu1hK5PqTSF59c3XfwN5oQEihlEthUPhqCKL1j9E9dZ4nkEa5GbWfsF39mGXQn_CGgn9nfs"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-tertiary text-on-tertiary-fixed w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg shadow-lg">1</div>
+</div>
+<h3 class="text-2xl font-bold text-on-surface mb-1">Zephyr_Keys</h3>
+<p class="text-tertiary text-lg font-bold mb-4">168 WPM</p>
+<div class="flex gap-6 w-full border-t border-outline-variant/10 pt-4 mt-2">
+<div class="flex-1">
+<p class="text-xs text-on-surface-variant font-label-caps">Accuracy</p>
+<p class="font-mono-typing text-xl">99.8%</p>
+</div>
+<div class="flex-1">
+<p class="text-xs text-on-surface-variant font-label-caps">Tests</p>
+<p class="font-mono-typing text-xl">12.4k</p>
+</div>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="order-3 glass-panel p-stack-lg rounded-2xl bronze-glow text-center flex flex-col items-center transition-transform hover:scale-[1.02] duration-300">
+<div class="relative mb-6">
+<div class="w-24 h-24 rounded-full border-4 border-[#cd7f32]/40 p-1">
+<img class="w-full h-full object-cover rounded-full" data-alt="A close-up of a diverse, modern software developer in a tech-inspired environment. The background is a mesh of deep grays and bronzed highlights. Lighting is dramatic and focused, highlighting professional determination. The visual language is high-contrast, moody, and sleek, aligning perfectly with the dark-mode utilitarian design of a performance dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH8TkdddmRYklG2VlNIcb3EZ0bg_vofaIccJMcyAkEiugX9khL4sVCxs3vcr8lJCcY865z34-xRn9LtNfKsA4EgmIeuxME9gg3J9KMv_doQqji63ud3TKoCSfgWGfJmAbF9yIvpiTvaZ11EXPsVT15yq3cNv_qLWdTPGao4VD3Mf0A6OfA70ey4w-iZQwPS_4sQoFZne1CeP5p0ZlGKac5dOQ1KGeVa6I_YnYJFx_eg7pN-li7ppObB-ZabgnuR04-c6mPhCUjLSk"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-[#cd7f32] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">3</div>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-1">GhostWriter</h3>
+<p class="text-[#cd7f32] text-sm font-semibold mb-4">148 WPM</p>
+<div class="flex gap-4 w-full border-t border-outline-variant/10 pt-4 mt-2">
+<div class="flex-1">
+<p class="text-xs text-on-surface-variant font-label-caps">Accuracy</p>
+<p class="font-mono-typing text-lg">98.5%</p>
+</div>
+<div class="flex-1">
+<p class="text-xs text-on-surface-variant font-label-caps">Peak</p>
+<p class="font-mono-typing text-lg">155</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Rankings Table -->
+<section class="mb-section-gap">
+<div class="flex items-center justify-between mb-stack-md px-4">
+<span class="text-sm font-label-caps text-on-surface-variant">Top 100 Contenders</span>
+<div class="flex gap-4">
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+<span class="text-[10px] uppercase font-bold text-on-surface-variant/50 tracking-wider">Live Results</span>
+</div>
+</div>
+</div>
+<div class="space-y-stack-sm">
+<!-- User Row Card 4 -->
+<div class="flex items-center gap-gutter p-4 glass-panel rounded-xl hover:bg-surface-container-highest/40 transition-all cursor-pointer group">
+<div class="w-12 text-center font-mono-typing text-lg text-on-surface-variant group-hover:text-primary transition-colors">04</div>
+<div class="flex items-center gap-4 flex-1">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center border border-outline-variant/10 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A stylized minimalist avatar portrait of a person with a creative flair. The background is a deep matte black. Lighting uses subtle blue rim lights to define the silhouette against the dark environment. Professional, sleek, and perfectly cohesive with a technical typing dashboard theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8-bRjLCH938TAMxIKOEwiAnvdldxCY1T_b6mxSMlb_V09orIn35kpcTx4FxT_vzHahnvlGPtksTv5o7msJtj87px0uhYAX7KrLu0KxKzuqY9h8udJaO7HDFExFwpj6SP4RcQNWcbJ7MonPA1ZZqvo-p3eMagRXmpbao3d7VVicL41VbHWIL5fjD5SETS2b6yu9SXxFG4al99bf3JGT_dZpUN5l-UVKrOQNwrtDq9Cd-mWK2PSj49PZEZxLi8woeMaOIX4RGpq2j4"/>
+</div>
+<div>
+<h4 class="font-bold text-on-surface group-hover:translate-x-1 transition-transform">Neo_Flow</h4>
+<p class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">public</span> United States
+                                </p>
+</div>
+</div>
+<div class="hidden lg:flex flex-col items-center w-32">
+<span class="text-[10px] font-label-caps text-on-surface-variant">Accuracy</span>
+<span class="font-mono-typing">99.1%</span>
+</div>
+<div class="hidden lg:flex flex-col items-center w-32">
+<span class="text-[10px] font-label-caps text-on-surface-variant">Time</span>
+<span class="font-mono-typing">2h 12m</span>
+</div>
+<div class="text-right w-24">
+<div class="text-headline-md font-bold text-primary">145</div>
+<div class="text-[10px] font-label-caps text-on-surface-variant">WPM</div>
+</div>
+</div>
+<!-- User Row Card 5 -->
+<div class="flex items-center gap-gutter p-4 glass-panel rounded-xl hover:bg-surface-container-highest/40 transition-all cursor-pointer group">
+<div class="w-12 text-center font-mono-typing text-lg text-on-surface-variant group-hover:text-primary transition-colors">05</div>
+<div class="flex items-center gap-4 flex-1">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center border border-outline-variant/10 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up profile of a software engineer with glasses, looking at a high-resolution screen which reflects colorful code on their face. The environment is dark and professional. Moody blues and purples dominate the shadows. The style is sharp, modern, and tech-driven, fitting a high-performance gaming or productivity application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARiWhGmK0n1CWVtykIcxxQ4KTIyn384K2s3Dgs_1VYjPvKdgkN4YmwSK8RXvkqy3bhq5OLXIzjE-HSDV7JIQhGVVHaEv6CX1w0_2hdux9Ve8eB3DhXrNzJOvjS89MyyhUBzgRNxvEYueRo9wgIJa94jK6Gizd0lLiWgv6rr_8RT5JWHbu8f-AFzCkkvbwQF-90cwui55V_pxZ7QFVMCueopU3vx0S-uTqta1NLRZlLkAWYiMoVBE5sHMfHy2pAv-K2mAKp2lr1Vu8"/>
+</div>
+<div>
+<h4 class="font-bold text-on-surface group-hover:translate-x-1 transition-transform">PixelPuncher</h4>
+<p class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">public</span> Germany
+                                </p>
+</div>
+</div>
+<div class="hidden lg:flex flex-col items-center w-32">
+<span class="text-[10px] font-label-caps text-on-surface-variant">Accuracy</span>
+<span class="font-mono-typing">98.9%</span>
+</div>
+<div class="hidden lg:flex flex-col items-center w-32">
+<span class="text-[10px] font-label-caps text-on-surface-variant">Time</span>
+<span class="font-mono-typing">1h 45m</span>
+</div>
+<div class="text-right w-24">
+<div class="text-headline-md font-bold text-primary">143</div>
+<div class="text-[10px] font-label-caps text-on-surface-variant">WPM</div>
+</div>
+</div>
+<!-- User Row Card 6 -->
+<div class="flex items-center gap-gutter p-4 glass-panel rounded-xl hover:bg-surface-container-highest/40 transition-all cursor-pointer group">
+<div class="w-12 text-center font-mono-typing text-lg text-on-surface-variant group-hover:text-primary transition-colors">06</div>
+<div class="flex items-center gap-4 flex-1">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center border border-outline-variant/10 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a focused digital artist, wearing professional gear in a workspace illuminated by soft magenta and cyan lighting. The overall mood is futuristic and creative. The style is highly detailed and polished, with a focus on high-fidelity textures and professional lighting design suited for a modern web application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu_hrW0hNhhpBSPqpegqUe0LbMoqWDsR-kn-8DS0oXUM3QH8MY212k0_2YrGkLXm6vI58AG2ffk9k7q1zs81FdBETzRIFni19QuMlm7tDaa3QZ0cv5Sj9daNfNouWoT7rpcSkG5JkWD0wANpscBUIAyC9hNf5N1VfKWqFPgY91RpnIGFOjXkXwJgizUAa4JPD6XX_EyNRnQxy7DmzQXacd65uWEMvnr8KepIQv0DxGaCOsm5VS0UaCguPjgX3n2EFkK69pIxRJJ6w"/>
+</div>
+<div>
+<h4 class="font-bold text-on-surface group-hover:translate-x-1 transition-transform">SynthStroke</h4>
+<p class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">public</span> Japan
+                                </p>
+</div>
+</div>
+<div class="hidden lg:flex flex-col items-center w-32">
+<span class="text-[10px] font-label-caps text-on-surface-variant">Accuracy</span>
+<span class="font-mono-typing">99.5%</span>
+</div>
+<div class="hidden lg:flex flex-col items-center w-32">
+<span class="text-[10px] font-label-caps text-on-surface-variant">Time</span>
+<span class="font-mono-typing">4h 02m</span>
+</div>
+<div class="text-right w-24">
+<div class="text-headline-md font-bold text-primary">141</div>
+<div class="text-[10px] font-label-caps text-on-surface-variant">WPM</div>
+</div>
+</div>
+<!-- User Row Card 7 (Current User) -->
+<div class="flex items-center gap-gutter p-4 bg-primary/5 border border-primary/20 rounded-xl transition-all cursor-pointer group ring-1 ring-primary/30">
+<div class="w-12 text-center font-mono-typing text-lg text-primary">142</div>
+<div class="flex items-center gap-4 flex-1">
+<div class="w-10 h-10 rounded-full border border-primary/40 p-0.5 overflow-hidden">
+<img class="w-full h-full object-cover rounded-full" data-alt="A hyper-realistic close-up portrait of a professional e-sports player in a dimly lit gaming environment. Lighting is dominated by neon blue and cool white highlights. Focus on determination. High-fidelity rendering with a sleek dark-mode aesthetic for a professional typing software leaderboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC48pkJ3LtDsibxo0t1ah5oINm9VaUYiVJwLfPqyXl2m8t_XQWpYQGEko6vi33K-WwxuGUfo6jdt0HI0jD7imIwakun83M4oOdVPaj6_KzgRq7Ss_OrZMhphy79-__pY9hLX2FLjyFcLBW4f8HcDxDmxc25iE7vRWJxn016ZrOcWjcuvKq7xfP2RuDSMJAiZbq-peR2NeOJQPeoVfNQRzh6pmwcmERsIcB2Mn8FoPmHg7pHTPx6B3OqZ-hO0_PNbpNJV3KValPHt8I"/>
+</div>
+<div>
+<h4 class="font-bold text-on-surface flex items-center gap-2">Alex Rivera <span class="bg-primary/20 text-primary text-[10px] px-2 py-0.5 rounded uppercase tracking-tighter">You</span></h4>
+<p class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">public</span> Global
+                                </p>
+</div>
+</div>
+<div class="hidden lg:flex flex-col items-center w-32">
+<span class="text-[10px] font-label-caps text-on-surface-variant">Accuracy</span>
+<span class="font-mono-typing text-primary">97.8%</span>
+</div>
+<div class="hidden lg:flex flex-col items-center w-32">
+<span class="text-[10px] font-label-caps text-on-surface-variant">Time</span>
+<span class="font-mono-typing">15h 32m</span>
+</div>
+<div class="text-right w-24">
+<div class="text-headline-md font-bold text-primary">124</div>
+<div class="text-[10px] font-label-caps text-on-surface-variant">WPM</div>
+</div>
+</div>
+</div>
+<div class="mt-stack-lg text-center">
+<button class="px-8 py-3 bg-surface-container-high border border-outline-variant/20 rounded-lg text-sm font-semibold hover:bg-surface-container-highest transition-colors active:scale-95 duration-200">
+                        Load More Rankings
+                    </button>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="w-full py-section-gap border-t border-outline-variant/10 mt-section-gap">
+<div class="flex flex-col md:flex-row justify-between items-center px-gutter max-w-container-max mx-auto gap-stack-md">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md text-on-surface tracking-tighter">Kinetic</span>
+<span class="text-on-surface-variant/40">|</span>
+<p class="font-label-caps text-label-caps text-on-surface-variant">© 2024 Kinetic Typing. All rights reserved.</p>
+</div>
+<nav class="flex gap-stack-lg">
+<a class="font-label-caps text-label-caps text-outline hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="font-label-caps text-label-caps text-outline hover:text-primary transition-colors" href="#">Terms</a>
+<a class="font-label-caps text-label-caps text-outline hover:text-primary transition-colors" href="#">Github</a>
+<a class="font-label-caps text-label-caps text-outline hover:text-primary transition-colors" href="#">Contact</a>
+</nav>
+</div>
+</footer>
+</main>
+<script>
+        // Smooth entry for list items
+        document.querySelectorAll('.glass-panel').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(15px)';
+            setTimeout(() => {
+                el.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, 100 + (index * 50));
+        });
+
+        // Tab selection logic (visual only)
+        const tabs = document.querySelectorAll('.bg-surface-container-low button');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('bg-primary', 'text-on-primary', 'shadow-lg', 'shadow-primary/20');
+                    t.classList.add('text-on-surface-variant');
+                });
+                tab.classList.add('bg-primary', 'text-on-primary', 'shadow-lg', 'shadow-primary/20');
+                tab.classList.remove('text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

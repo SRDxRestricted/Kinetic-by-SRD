@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kinetic | Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&amp;family=Geist:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#002e6a",
+                    "inverse-surface": "#e1e2ec",
+                    "surface-variant": "#32353c",
+                    "primary": "#adc6ff",
+                    "surface-bright": "#363941",
+                    "primary-fixed-dim": "#adc6ff",
+                    "surface-tint": "#adc6ff",
+                    "secondary-container": "#434a53",
+                    "on-tertiary-container": "#461f00",
+                    "on-tertiary-fixed": "#311400",
+                    "on-error": "#690005",
+                    "on-primary-fixed": "#001a42",
+                    "on-secondary-fixed-variant": "#404750",
+                    "on-primary-fixed-variant": "#004395",
+                    "inverse-on-surface": "#2e3038",
+                    "primary-container": "#4d8eff",
+                    "inverse-primary": "#005ac2",
+                    "surface-container-lowest": "#0b0e15",
+                    "background": "#10131a",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed": "#dce3ee",
+                    "on-tertiary": "#502400",
+                    "on-secondary": "#2a313a",
+                    "surface-container-high": "#272a31",
+                    "tertiary": "#ffb786",
+                    "tertiary-fixed": "#ffdcc6",
+                    "error-container": "#93000a",
+                    "surface-container-low": "#191b23",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "on-background": "#e1e2ec",
+                    "on-surface-variant": "#c2c6d6",
+                    "secondary-fixed-dim": "#c0c7d2",
+                    "outline-variant": "#424754",
+                    "surface-dim": "#10131a",
+                    "on-primary-container": "#00285d",
+                    "surface": "#10131a",
+                    "tertiary-container": "#df7412",
+                    "primary-fixed": "#d8e2ff",
+                    "surface-container-highest": "#32353c",
+                    "outline": "#8c909f",
+                    "on-secondary-container": "#b2b9c4",
+                    "secondary": "#c0c7d2",
+                    "on-surface": "#e1e2ec",
+                    "surface-container": "#1d2027",
+                    "on-secondary-fixed": "#151c24"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "container-max": "1200px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px",
+                    "section-gap": "64px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "body-base": ["Geist"],
+                    "display-lg": ["Geist"],
+                    "label-caps": ["Geist"],
+                    "mono-typing": ["JetBrains Mono"],
+                    "headline-md": ["Geist"],
+                    "headline-md-mobile": ["Geist"]
+            },
+            "fontSize": {
+                    "body-base": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "mono-typing": ["32px", {"lineHeight": "48px", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0B0F14;
+            color: #E1E2EC;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(24, 31, 41, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+        .input-focus-ring:focus {
+            box-shadow: 0 0 0 2px rgba(173, 198, 255, 0.2);
+            border-color: #adc6ff;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up {
+            animation: fadeUp 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="font-body-base text-body-base bg-background flex flex-col min-h-screen">
+<!-- TopNavBar Suppression: According to Shell Visibility & Relevance, Login screens suppress Global Nav -->
+<main class="flex-grow flex items-center justify-center relative px-margin-mobile py-section-gap overflow-hidden">
+<!-- Subtle Ambient Background Light-leak -->
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-tertiary/5 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="max-w-container-max w-full grid grid-cols-1 md:grid-cols-12 gap-stack-lg items-center relative z-10">
+<!-- Side Content: Abstract Illustration -->
+<div class="hidden md:flex md:col-span-6 flex-col justify-center items-start animate-fade-up" style="animation-delay: 0.2s;">
+<div class="relative w-full aspect-square max-w-[480px]">
+
+<div class="absolute inset-0 flex flex-col justify-end p-stack-lg bg-gradient-to-t from-background/80 to-transparent rounded-xl">
+<h1 class="font-display-lg text-display-lg text-primary mb-2">Focus on Flow.</h1>
+<p class="text-on-surface-variant max-w-md">Precision typing analytics and high-performance training for the modern developer.</p>
+</div>
+</div>
+</div>
+<!-- Login Card -->
+<div class="col-span-1 md:col-span-6 flex justify-center md:justify-end animate-fade-up">
+<div class="glass-card w-full max-w-[440px] p-8 md:p-10 rounded-xl flex flex-col gap-stack-md">
+<div class="flex flex-col gap-2 mb-stack-sm">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[32px]">keyboard</span>
+<span class="font-headline-md text-headline-md tracking-tighter">Kinetic</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-2">Welcome back</h2>
+<p class="text-on-surface-variant text-body-base">Enter your details to access your dashboard.</p>
+</div>
+<form class="flex flex-col gap-stack-md" onsubmit="event.preventDefault();">
+<!-- Email Field -->
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant" for="email">Email</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-lg px-4 py-3 text-on-surface outline-none input-focus-ring transition-all placeholder:text-outline/50" id="email" placeholder="name@company.com" type="email"/>
+</div>
+<!-- Password Field -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<label class="font-label-caps text-label-caps text-on-surface-variant" for="password">Password</label>
+<a class="text-label-caps text-primary hover:underline transition-all" href="#">Forgot Password?</a>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-lg px-4 py-3 text-on-surface outline-none input-focus-ring transition-all placeholder:text-outline/50" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</div>
+</div>
+<!-- Remember Me -->
+<div class="flex items-center gap-3">
+<input class="w-4 h-4 rounded border-outline-variant/20 bg-surface-container-lowest text-primary focus:ring-primary focus:ring-offset-background transition-all" id="remember" type="checkbox"/>
+<label class="text-body-base text-on-surface-variant select-none" for="remember">Remember me</label>
+</div>
+<!-- Login Actions -->
+<div class="flex flex-col gap-3 mt-4">
+<button class="w-full bg-primary text-on-primary font-semibold py-3.5 rounded-lg active:scale-[0.98] transition-transform duration-200">
+                                Login
+                            </button>
+<div class="flex items-center gap-4 my-2">
+<div class="h-[1px] flex-grow bg-outline-variant/20"></div>
+<span class="text-label-caps text-outline uppercase tracking-widest">Or continue with</span>
+<div class="h-[1px] flex-grow bg-outline-variant/20"></div>
+</div>
+<button class="w-full flex items-center justify-center gap-3 bg-surface-container-low border border-outline-variant/20 py-3.5 rounded-lg hover:bg-surface-container-high active:scale-[0.98] transition-all duration-200">
+<img alt="Google Logo" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgVvHg6yFAiqyDZQjiNNiUMICbF_Dy8iTtUKn17WtNRgCKKndISrEg0tXwN1ZAqsmZYk-5sqC4wsgLERPHCYnzsfo9TPGc5zmB-ZQflQv-d0cTv0JjOp_KE_QyiFLYQBQLnn8oA4eNyjxDnaJPpeN3fBj4GfJasjysOS23Ry9dvH31MJioZdyjQZAy35oVyE4y74kVLHNm5idl4DtAKvMXehZzlIpbz3gfOz4tQHNnhiY1X8RAWQcc8CcAkMgqKaiqzWWX9-D_5ag"/>
+<span class="font-medium text-on-surface">Continue with Google</span>
+</button>
+</div>
+</form>
+<div class="mt-stack-md pt-stack-md border-t border-outline-variant/10 text-center">
+<p class="text-on-surface-variant">
+                            Don't have an account? 
+                            <a class="text-primary font-semibold hover:underline decoration-primary/30 underline-offset-4" href="#">Sign Up</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer suppression based on task focus, but keeping minimal copyright/legal as per style standard -->
+<footer class="w-full py-stack-md">
+<div class="max-w-container-max mx-auto px-gutter flex flex-col md:flex-row justify-between items-center gap-4 text-on-surface-variant font-label-caps text-label-caps">
+<p>© 2024 Kinetic Typing. All rights reserved.</p>
+<div class="flex gap-stack-md">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for button press
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));
+            btn.addEventListener('mouseup', () => btn.classList.remove('scale-95'));
+            btn.addEventListener('mouseleave', () => btn.classList.remove('scale-95'));
+        });
+
+        // Basic form animation stagger
+        window.addEventListener('DOMContentLoaded', () => {
+            const inputs = document.querySelectorAll('input, label, button, h2, p');
+            inputs.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(10px)';
+                el.style.transition = 'all 0.4s ease-out';
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 100 + (index * 20));
+            });
+        });
+    </script>
+</body></html>

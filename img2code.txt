@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kinetic | Improve Your Typing Speed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/static/Geist.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#002e6a",
+                    "inverse-surface": "#e1e2ec",
+                    "surface-variant": "#32353c",
+                    "primary": "#adc6ff",
+                    "surface-bright": "#363941",
+                    "primary-fixed-dim": "#adc6ff",
+                    "surface-tint": "#adc6ff",
+                    "secondary-container": "#434a53",
+                    "on-tertiary-container": "#461f00",
+                    "on-tertiary-fixed": "#311400",
+                    "on-error": "#690005",
+                    "on-primary-fixed": "#001a42",
+                    "on-secondary-fixed-variant": "#404750",
+                    "on-primary-fixed-variant": "#004395",
+                    "inverse-on-surface": "#2e3038",
+                    "primary-container": "#4d8eff",
+                    "inverse-primary": "#005ac2",
+                    "surface-container-lowest": "#0b0e15",
+                    "background": "#10131a",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed": "#dce3ee",
+                    "on-tertiary": "#502400",
+                    "on-secondary": "#2a313a",
+                    "surface-container-high": "#272a31",
+                    "tertiary": "#ffb786",
+                    "tertiary-fixed": "#ffdcc6",
+                    "error-container": "#93000a",
+                    "surface-container-low": "#191b23",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "on-background": "#e1e2ec",
+                    "on-surface-variant": "#c2c6d6",
+                    "secondary-fixed-dim": "#c0c7d2",
+                    "outline-variant": "#424754",
+                    "surface-dim": "#10131a",
+                    "on-primary-container": "#00285d",
+                    "surface": "#10131a",
+                    "tertiary-container": "#df7412",
+                    "primary-fixed": "#d8e2ff",
+                    "surface-container-highest": "#32353c",
+                    "outline": "#8c909f",
+                    "on-secondary-container": "#b2b9c4",
+                    "secondary": "#c0c7d2",
+                    "on-surface": "#e1e2ec",
+                    "surface-container": "#1d2027",
+                    "on-secondary-fixed": "#151c24"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "container-max": "1200px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px",
+                    "section-gap": "64px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "body-base": ["Geist"],
+                    "display-lg": ["Geist"],
+                    "label-caps": ["Geist"],
+                    "mono-typing": ["JetBrains Mono"],
+                    "headline-md": ["Geist"],
+                    "headline-md-mobile": ["Geist"]
+            },
+            "fontSize": {
+                    "body-base": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "mono-typing": ["32px", {"lineHeight": "48px", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #10131a;
+            color: #e1e2ec;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(24, 31, 41, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.6s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-body-base selection:bg-primary/30 selection:text-primary">
+<!-- TopNavBar -->
+<header class="w-full top-0 sticky bg-background/80 backdrop-blur-md z-50">
+<nav class="flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto">
+<div class="text-headline-md font-headline-md tracking-tighter text-primary dark:text-primary">
+                Kinetic
+            </div>
+<div class="hidden md:flex items-center gap-stack-lg">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 hover:text-primary transition-colors duration-200" href="#">Home</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Features</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Leaderboard</a>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="text-on-surface-variant font-medium px-4 py-2 hover:text-primary transition-colors duration-200 scale-95 active:scale-90 transition-transform">Login</button>
+<button class="bg-primary-container text-on-primary-container font-medium px-6 py-2 rounded-lg hover:opacity-90 scale-95 active:scale-90 transition-transform">Sign Up</button>
+</div>
+</nav>
+</header>
+<main class="relative overflow-hidden">
+<!-- Hero Section -->
+<section class="relative min-h-[870px] flex flex-col items-center justify-center text-center px-gutter py-section-gap overflow-hidden">
+
+<div class="relative z-10 max-w-4xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-outline-variant/20 mb-stack-lg reveal" id="hero-badge">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">V2.0 NOW LIVE</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-stack-md tracking-tight reveal" id="hero-title">
+                    Improve Your <span class="text-primary">Typing Speed.</span>
+</h1>
+<p class="font-body-base text-body-base text-on-surface-variant max-w-xl mx-auto mb-stack-lg reveal" id="hero-subtitle">
+                    Master the art of precision and velocity with the world's most sophisticated typing engine. Designed for developers and high-performance individuals.
+                </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-stack-md reveal" id="hero-cta">
+<button class="group relative px-8 py-4 bg-primary text-on-primary font-headline-md rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_40px_-10px_rgba(173,198,255,0.4)] active:scale-95 overflow-hidden">
+<span class="relative z-10">Start Typing</span>
+<div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+</button>
+<button class="px-8 py-4 border border-outline-variant text-on-surface font-headline-md rounded-xl hover:bg-surface-container-high transition-all duration-200">
+                        View Leaderboard
+                    </button>
+</div>
+</div>
+<!-- Dashboard Preview -->
+<div class="relative mt-20 w-full max-w-container-max mx-auto px-gutter reveal" id="dashboard-preview">
+<div class="glass-card rounded-2xl p-4 md:p-8 aspect-video shadow-2xl overflow-hidden border border-white/5">
+<div class="flex items-center justify-between mb-8">
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-error/40"></div>
+<div class="w-3 h-3 rounded-full bg-tertiary/40"></div>
+<div class="w-3 h-3 rounded-full bg-primary/40"></div>
+</div>
+<div class="flex gap-stack-md">
+<div class="px-3 py-1 rounded bg-primary/10 text-primary text-[12px] font-mono">TIMED 60S</div>
+<div class="px-3 py-1 rounded bg-surface-container-highest text-on-surface-variant text-[12px] font-mono">ENGLISH</div>
+</div>
+</div>
+<div class="font-mono-typing text-mono-typing text-on-surface-variant text-left leading-relaxed opacity-60">
+                        The <span class="text-on-surface">quick</span> brown fox jumps over the lazy dog. Programming is the art of <span class="border-b-2 border-primary text-on-surface">telling another human</span> being what one wants the computer to do...
+                    </div>
+<div class="absolute bottom-10 right-10 flex gap-stack-lg">
+<div class="text-right">
+<div class="text-label-caps font-label-caps text-outline">WPM</div>
+<div class="text-headline-md font-headline-md text-primary">124</div>
+</div>
+<div class="text-right">
+<div class="text-label-caps font-label-caps text-outline">ACC</div>
+<div class="text-headline-md font-headline-md text-primary">98%</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="max-w-container-max mx-auto px-gutter py-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-stack-md">
+<!-- Speed -->
+<div class="glass-card p-stack-lg rounded-2xl flex flex-col justify-between group hover:border-primary/50 transition-colors duration-500 reveal">
+<div>
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-stack-md">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-stack-sm">Elite Speed</h3>
+<p class="font-body-base text-body-base text-on-surface-variant">Latency-free engine designed for maximum raw speed tracking.</p>
+</div>
+<div class="mt-8 pt-4 border-t border-outline-variant/10 group-hover:text-primary transition-colors">
+                        Explore analytics →
+                    </div>
+</div>
+<!-- Accuracy -->
+<div class="glass-card p-stack-lg rounded-2xl flex flex-col justify-between group hover:border-tertiary/50 transition-colors duration-500 reveal">
+<div>
+<div class="w-12 h-12 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary mb-stack-md">
+<span class="material-symbols-outlined">target</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-stack-sm">Precision Mapping</h3>
+<p class="font-body-base text-body-base text-on-surface-variant">Detailed heatmaps showing exactly which keys are slowing you down.</p>
+</div>
+<div class="mt-8 pt-4 border-t border-outline-variant/10 group-hover:text-tertiary transition-colors">
+                        View heatmaps →
+                    </div>
+</div>
+<!-- Consistency -->
+<div class="glass-card p-stack-lg rounded-2xl flex flex-col justify-between group hover:border-on-primary-container/50 transition-colors duration-500 reveal">
+<div>
+<div class="w-12 h-12 rounded-lg bg-primary-container/10 flex items-center justify-center text-primary-container mb-stack-md">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-stack-sm">Progression Track</h3>
+<p class="font-body-base text-body-base text-on-surface-variant">Watch your improvement over months with elegant data visualizations.</p>
+</div>
+<div class="mt-8 pt-4 border-t border-outline-variant/10 group-hover:text-primary-container transition-colors">
+                        Personal history →
+                    </div>
+</div>
+</div>
+</section>
+<!-- Stats Preview / Achievement -->
+<section class="max-w-container-max mx-auto px-gutter py-section-gap">
+<div class="glass-card rounded-3xl p-stack-lg flex flex-col md:flex-row items-center gap-12 border-primary/20 overflow-hidden relative reveal">
+<div class="absolute -right-20 -top-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="w-full md:w-1/2">
+<h2 class="font-display-lg text-[32px] leading-tight text-on-surface mb-stack-md">Trusted by 50,000+ <br/><span class="text-primary">Performance Junkies.</span></h2>
+<p class="font-body-base text-body-base text-on-surface-variant mb-stack-lg">Whether you're a developer optimizing your workflow or a competitive typist, Kinetic provides the tools to break through plateaus.</p>
+<div class="grid grid-cols-2 gap-stack-lg">
+<div>
+<div class="text-headline-md font-headline-md text-on-surface">2.4M</div>
+<div class="text-label-caps font-label-caps text-outline">TESTS TAKEN</div>
+</div>
+<div>
+<div class="text-headline-md font-headline-md text-on-surface">88 WPM</div>
+<div class="text-label-caps font-label-caps text-outline">AVG SPEED</div>
+</div>
+</div>
+</div>
+<div class="w-full md:w-1/2 aspect-square relative">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent rounded-full animate-pulse"></div>
+<img class="w-full h-full object-cover rounded-2xl shadow-xl border border-white/5" data-alt="A futuristic, high-tech interface showcasing complex 3D data visualizations of typing statistics and speed curves. The aesthetic is clean, dark, and professional with soft blue glowing lines and semi-transparent UI elements. The style is inspired by modern productivity dashboards and premium software design, emphasizing clarity and technological precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwmn8-j7fgTXG4iXjEtfSO9SkAqSuoHY5BdjNlYP9RX_JlRdiiGwItneYz7j7dWScSPQEYDJnz15cHz7_MasZQhK3l90HUVj5UmJC5mJ7c50VHBZ13a9X_XXDPGgPRtj4oqjQSyLiyFwfe2THKJJ5R1iFHmaMrOr0AoUrZGVpC_hDxTPqCt5r9MCOwVaNsa5907uBvA34hs1cmxSJthKTAao_mIOQe94VU4mft_wBZJAISlQ0QcQh88FGF06sn7ee0NbOEcRQQKx8"/>
+</div>
+</div>
+</section>
+<!-- Leaderboard Teaser -->
+<section class="max-w-container-max mx-auto px-gutter py-section-gap">
+<div class="text-center mb-stack-lg reveal">
+<h2 class="font-headline-md text-headline-md text-on-surface">Global Leaderboard</h2>
+<p class="text-on-surface-variant">The fastest fingers in the world.</p>
+</div>
+<div class="glass-card rounded-2xl overflow-hidden reveal">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/10 text-label-caps font-label-caps text-outline">
+<th class="px-6 py-4">RANK</th>
+<th class="px-6 py-4">USER</th>
+<th class="px-6 py-4">WPM</th>
+<th class="px-6 py-4">ACCURACY</th>
+</tr>
+</thead>
+<tbody class="text-on-surface-variant font-body-base">
+<tr class="hover:bg-white/5 transition-colors cursor-default border-b border-outline-variant/5">
+<td class="px-6 py-4 text-primary">#1</td>
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest"></div>
+<span class="text-on-surface font-medium">HyperSonic</span>
+</td>
+<td class="px-6 py-4 font-mono">218</td>
+<td class="px-6 py-4 font-mono">99.8%</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors cursor-default border-b border-outline-variant/5">
+<td class="px-6 py-4 text-primary">#2</td>
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest"></div>
+<span class="text-on-surface font-medium">GhostTypist</span>
+</td>
+<td class="px-6 py-4 font-mono">205</td>
+<td class="px-6 py-4 font-mono">100%</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors cursor-default">
+<td class="px-6 py-4 text-primary">#3</td>
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest"></div>
+<span class="text-on-surface font-medium">LatencyZero</span>
+</td>
+<td class="px-6 py-4 font-mono">198</td>
+<td class="px-6 py-4 font-mono">99.2%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-8 text-center reveal">
+<a class="text-primary hover:underline font-medium" href="#">View full leaderboard</a>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="max-w-container-max mx-auto px-gutter py-section-gap bg-surface-container-lowest/30 rounded-[3rem]">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg items-center">
+<div class="reveal">
+<div class="text-primary text-5xl mb-stack-md">“</div>
+<p class="font-headline-md text-headline-md text-on-surface leading-relaxed italic mb-stack-md">
+                        Kinetic has completely changed how I interact with my code. I've gained over 30 WPM in three months, and the analytics helped me identify exact finger-placement issues.
+                    </p>
+<div class="flex items-center gap-stack-md">
+<div class="w-12 h-12 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up portrait of a professional software engineer in a dark, moody workspace. Soft blue ambient lighting from monitors illuminates his face. He is wearing a minimalist black hoodie, and the background shows a bokeh of mechanical keyboard keys. The overall style is modern, professional, and tech-focused with a premium editorial feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAs6inMGMDZxxhi_BMYdeMFeQSjfnGyxETFDFWno9a6EDw6_WEDP-9rtlvONBzaEQ9TIZqidxdqzGU8MnMWIUdqZxduwVCeLL9zwR2JAtO5gGyk5Lt4UZxqkAn_Nbdo_eXIRX4Vk3WF_AaIg9UK9C7dxEO-_6Ws26-Tt7cu9cVogKBUOo76uTr5Wsn4XbbRAY9WPRR5NKsNPLoziWwsdR649g4zlXK_TMLb_v1mrm4qK7-AyGIwFl-D5CT6dZFNUYNCreVg5lvKCrE"/>
+</div>
+<div>
+<div class="text-on-surface font-bold">Marcus Chen</div>
+<div class="text-label-caps font-label-caps text-outline uppercase">Senior Dev @ Vector</div>
+</div>
+</div>
+</div>
+<div class="hidden md:block reveal">
+<div class="glass-card p-stack-lg rounded-3xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
+<div class="flex items-center gap-stack-sm mb-4">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-on-surface-variant">The 'Linear' of typing tests. No bloat, just performance.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-gap border-t border-outline-variant/10 bg-background dark:bg-background">
+<div class="flex flex-col md:flex-row justify-between items-center px-gutter max-w-container-max mx-auto">
+<div class="flex flex-col gap-stack-sm mb-stack-md md:mb-0">
+<div class="font-headline-md text-headline-md text-on-surface">Kinetic</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant dark:text-on-surface-variant opacity-80">
+                    © 2024 Kinetic Typing. All rights reserved.
+                </div>
+</div>
+<div class="flex gap-stack-lg">
+<a class="font-label-caps text-label-caps text-outline hover:text-primary transition-colors duration-200 uppercase" href="#">Privacy</a>
+<a class="font-label-caps text-label-caps text-outline hover:text-primary transition-colors duration-200 uppercase" href="#">Terms</a>
+<a class="font-label-caps text-label-caps text-outline hover:text-primary transition-colors duration-200 uppercase" href="#">Github</a>
+<a class="font-label-caps text-label-caps text-outline hover:text-primary transition-colors duration-200 uppercase" href="#">Contact</a>
+</div>
+</div>
+</footer>
+<script>
+        // Reveal elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Subtle micro-interaction for button
+        const mainCta = document.querySelector('button.group');
+        if(mainCta) {
+            mainCta.addEventListener('mousemove', (e) => {
+                const rect = mainCta.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                mainCta.style.setProperty('--mouse-x', `${x}px`);
+                mainCta.style.setProperty('--mouse-y', `${y}px`);
+            });
+        }
+    </script>
+</body></html>

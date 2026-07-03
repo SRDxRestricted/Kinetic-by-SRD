@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kinetic Dashboard | Precision Typing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.cdnfonts.com/css/geist" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(24, 31, 41, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .heatmap-cell {
+            aspect-ratio: 1/1;
+            border-radius: 2px;
+            transition: transform 0.1s ease;
+        }
+        .heatmap-cell:hover {
+            transform: scale(1.2);
+            z-index: 10;
+        }
+        body {
+            background-color: #10131a;
+            color: #e1e2ec;
+            scrollbar-width: thin;
+            scrollbar-color: #32353c transparent;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#002e6a",
+                        "inverse-surface": "#e1e2ec",
+                        "surface-variant": "#32353c",
+                        "primary": "#adc6ff",
+                        "surface-bright": "#363941",
+                        "primary-fixed-dim": "#adc6ff",
+                        "surface-tint": "#adc6ff",
+                        "secondary-container": "#434a53",
+                        "on-tertiary-container": "#461f00",
+                        "on-tertiary-fixed": "#311400",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#001a42",
+                        "on-secondary-fixed-variant": "#404750",
+                        "on-primary-fixed-variant": "#004395",
+                        "inverse-on-surface": "#2e3038",
+                        "primary-container": "#4d8eff",
+                        "inverse-primary": "#005ac2",
+                        "surface-container-lowest": "#0b0e15",
+                        "background": "#10131a",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#dce3ee",
+                        "on-tertiary": "#502400",
+                        "on-secondary": "#2a313a",
+                        "surface-container-high": "#272a31",
+                        "tertiary": "#ffb786",
+                        "tertiary-fixed": "#ffdcc6",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#191b23",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "on-background": "#e1e2ec",
+                        "on-surface-variant": "#c2c6d6",
+                        "secondary-fixed-dim": "#c0c7d2",
+                        "outline-variant": "#424754",
+                        "surface-dim": "#10131a",
+                        "on-primary-container": "#00285d",
+                        "surface": "#10131a",
+                        "tertiary-container": "#df7412",
+                        "primary-fixed": "#d8e2ff",
+                        "surface-container-highest": "#32353c",
+                        "outline": "#8c909f",
+                        "on-secondary-container": "#b2b9c4",
+                        "secondary": "#c0c7d2",
+                        "on-surface": "#e1e2ec",
+                        "surface-container": "#1d2027",
+                        "on-secondary-fixed": "#151c24"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "stack-lg": "32px",
+                        "margin-mobile": "16px",
+                        "section-gap": "64px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-base": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "label-caps": ["Geist"],
+                        "mono-typing": ["JetBrains Mono"],
+                        "headline-md": ["Geist"],
+                        "headline-md-mobile": ["Geist"]
+                    },
+                    "fontSize": {
+                        "body-base": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "mono-typing": ["32px", {"lineHeight": "48px", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-md-mobile": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="font-body-base text-on-background selection:bg-primary/30">
+<!-- SideNavBar -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant/10 flex flex-col p-stack-md gap-stack-sm z-50">
+<div class="mb-stack-lg px-2">
+<h1 class="font-headline-md text-headline-md text-primary tracking-tighter">Kinetic</h1>
+<p class="text-on-surface-variant font-label-caps text-[10px] uppercase tracking-widest">Precision Typing</p>
+</div>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 group rounded-lg" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">home</span>
+<span class="font-body-base text-body-base">Home</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-primary font-bold bg-primary/10 rounded-lg group transition-transform duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-body-base text-body-base">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 group rounded-lg" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">keyboard</span>
+<span class="font-body-base text-body-base">Typing Test</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 group rounded-lg" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">history</span>
+<span class="font-body-base text-body-base">History</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 group rounded-lg" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">leaderboard</span>
+<span class="font-body-base text-body-base">Leaderboard</span>
+</a>
+</div>
+<div class="mt-auto pt-stack-md border-t border-outline-variant/10">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 group rounded-lg" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">person</span>
+<span class="font-body-base text-body-base">Profile</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 group rounded-lg" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">settings</span>
+<span class="font-body-base text-body-base">Settings</span>
+</a>
+<div class="mt-4 px-3 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist user profile avatar for a tech-focused professional, featuring a stylized geometric icon in a deep blue and soft silver color palette with a soft ambient glow, consistent with a high-performance developer dashboard aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe99Y2lXz863ZbPkEAjT8cRVyr3c7F-jtWeuyAcShhhxFCIK7un_7U9YjjGiUse-D-ITdy7DwdRsJ-i5cKRvlUhcVOQPsmRuXvdY8AE_ui3xy9Ot9F6_FCXmy0Nrf7pu1mlpNT16XgHn62X2tlS8F00W7Kylv6rsMjVhBFJqhCH_Ggcdl6dXMiuv23eqW8TSdoYvXZ5IJo7cgrXgnl941pCoqUsYa0LTrexch-caBB-oYsa32Tjh1PAlONMc6aAkr9dIU20zbAvV4"/>
+</div>
+<div>
+<p class="text-on-surface font-bold text-[13px]">alex_p</p>
+<p class="text-on-surface-variant text-[11px]">Pro Typist</p>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="ml-64 p-gutter max-w-container-max mx-auto space-y-section-gap">
+<!-- Hero Start Action -->
+<section class="relative h-64 flex items-center justify-center overflow-hidden rounded-xl bg-surface-container-lowest border border-outline-variant/20 shadow-2xl">
+
+<div class="relative z-10 text-center space-y-stack-md">
+<h2 class="font-display-lg text-display-lg text-on-surface tracking-tighter">Ready to break your record?</h2>
+<button class="bg-[#3B82F6] text-[#F8FAFC] font-headline-md px-12 py-4 rounded-full shadow-lg shadow-blue-500/20 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 mx-auto">
+<span class="material-symbols-outlined">play_arrow</span>
+                    Start Test
+                </button>
+</div>
+</section>
+<!-- Stats Grid -->
+<section class="grid grid-cols-1 md:grid-cols-5 gap-stack-md">
+<!-- WPM Card -->
+<div class="glass-panel p-stack-md rounded-xl group hover:border-primary/50 transition-colors">
+<div class="flex items-center justify-between mb-2">
+<span class="text-on-surface-variant font-label-caps uppercase text-[11px] tracking-widest">Current WPM</span>
+<span class="material-symbols-outlined text-primary text-[18px]">speed</span>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="font-display-lg text-4xl text-on-surface">114</h3>
+<span class="text-tertiary font-bold text-sm">+8%</span>
+</div>
+<p class="text-on-surface-variant text-xs mt-1">Based on last 10 tests</p>
+</div>
+<!-- Accuracy Card -->
+<div class="glass-panel p-stack-md rounded-xl group hover:border-primary/50 transition-colors">
+<div class="flex items-center justify-between mb-2">
+<span class="text-on-surface-variant font-label-caps uppercase text-[11px] tracking-widest">Avg Accuracy</span>
+<span class="material-symbols-outlined text-primary text-[18px]">target</span>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="font-display-lg text-4xl text-on-surface">98.4<span class="text-2xl">%</span></h3>
+</div>
+<p class="text-on-surface-variant text-xs mt-1">High precision maintained</p>
+</div>
+<!-- Tests Card -->
+<div class="glass-panel p-stack-md rounded-xl group hover:border-primary/50 transition-colors">
+<div class="flex items-center justify-between mb-2">
+<span class="text-on-surface-variant font-label-caps uppercase text-[11px] tracking-widest">Tests Completed</span>
+<span class="material-symbols-outlined text-primary text-[18px]">checklist</span>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="font-display-lg text-4xl text-on-surface">1,402</h3>
+</div>
+<p class="text-on-surface-variant text-xs mt-1">Lifetime total</p>
+</div>
+<!-- Streak Card -->
+<div class="glass-panel p-stack-md rounded-xl group hover:border-primary/50 transition-colors">
+<div class="flex items-center justify-between mb-2">
+<span class="text-on-surface-variant font-label-caps uppercase text-[11px] tracking-widest">Current Streak</span>
+<span class="material-symbols-outlined text-tertiary text-[18px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="font-display-lg text-4xl text-on-surface">14</h3>
+<span class="text-on-surface-variant text-sm">days</span>
+</div>
+<p class="text-on-surface-variant text-xs mt-1">Keep it up!</p>
+</div>
+<!-- PB Card -->
+<div class="glass-panel p-stack-md rounded-xl border-primary/30 bg-primary/5">
+<div class="flex items-center justify-between mb-2">
+<span class="text-primary font-label-caps uppercase text-[11px] tracking-widest">Personal Best</span>
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+<div class="flex items-baseline gap-2">
+<h3 class="font-display-lg text-4xl text-on-surface">129</h3>
+</div>
+<p class="text-on-surface-variant text-xs mt-1">Achieved 3 days ago</p>
+</div>
+</section>
+<!-- Progress and History -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Progress Graph -->
+<div class="lg:col-span-8 glass-panel rounded-xl p-gutter overflow-hidden flex flex-col">
+<div class="flex items-center justify-between mb-gutter">
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Progress Graph</h4>
+<p class="text-on-surface-variant text-sm">WPM performance over the last 30 tests</p>
+</div>
+<div class="flex gap-2">
+<button class="bg-surface-container-high text-on-surface px-3 py-1 rounded text-xs border border-outline-variant/10">1W</button>
+<button class="bg-primary/20 text-primary px-3 py-1 rounded text-xs border border-primary/30">1M</button>
+<button class="bg-surface-container-high text-on-surface px-3 py-1 rounded text-xs border border-outline-variant/10">ALL</button>
+</div>
+</div>
+<!-- Mock Chart Area -->
+<div class="relative flex-grow h-64 w-full">
+<svg class="w-full h-full overflow-visible" viewbox="0 0 800 200">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#adc6ff" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#adc6ff" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,150 Q100,140 200,160 T400,120 T600,100 T800,80 L800,200 L0,200 Z" fill="url(#chartGradient)"></path>
+<path d="M0,150 Q100,140 200,160 T400,120 T600,100 T800,80" fill="none" stroke="#adc6ff" stroke-width="3"></path>
+<!-- Points -->
+<circle cx="200" cy="160" fill="#10131a" r="4" stroke="#adc6ff" stroke-width="2"></circle>
+<circle cx="400" cy="120" fill="#10131a" r="4" stroke="#adc6ff" stroke-width="2"></circle>
+<circle cx="600" cy="100" fill="#10131a" r="4" stroke="#adc6ff" stroke-width="2"></circle>
+<circle cx="800" cy="80" fill="#adc6ff" r="4"></circle>
+</svg>
+<!-- Y Axis Labels -->
+<div class="absolute left-0 top-0 h-full flex flex-col justify-between text-[10px] text-on-surface-variant/50">
+<span>140</span>
+<span>110</span>
+<span>80</span>
+<span>50</span>
+</div>
+</div>
+</div>
+<!-- Recent Tests Table -->
+<div class="lg:col-span-4 glass-panel rounded-xl p-gutter overflow-hidden">
+<h4 class="font-headline-md text-headline-md text-on-surface mb-gutter">Recent Tests</h4>
+<div class="space-y-4">
+<!-- Table Row 1 -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-high/40 hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[16px]">timer</span>
+</div>
+<div>
+<p class="text-sm font-bold">112 WPM</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Timed 60s</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-mono text-tertiary">99.1%</p>
+<p class="text-[10px] text-on-surface-variant">2m ago</p>
+</div>
+</div>
+<!-- Table Row 2 -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-high/40 hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[16px]">abc</span>
+</div>
+<div>
+<p class="text-sm font-bold">108 WPM</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Words 50</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-mono text-tertiary">97.8%</p>
+<p class="text-[10px] text-on-surface-variant">1h ago</p>
+</div>
+</div>
+<!-- Table Row 3 -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-high/40 hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[16px]">timer</span>
+</div>
+<div>
+<p class="text-sm font-bold">124 WPM</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Timed 15s</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-mono text-tertiary">100%</p>
+<p class="text-[10px] text-on-surface-variant">4h ago</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-2 text-xs font-label-caps text-on-surface-variant hover:text-primary transition-colors border border-outline-variant/10 rounded-lg uppercase tracking-widest">
+                    View Full History
+                </button>
+</div>
+</section>
+<!-- Weekly Activity Heatmap -->
+<section class="glass-panel rounded-xl p-gutter">
+<div class="flex items-center justify-between mb-gutter">
+<h4 class="font-headline-md text-headline-md text-on-surface">Weekly Training Activity</h4>
+<div class="flex items-center gap-4 text-xs text-on-surface-variant">
+<span>Less</span>
+<div class="flex gap-1">
+<div class="w-3 h-3 bg-surface-container-highest rounded-sm"></div>
+<div class="w-3 h-3 bg-primary/20 rounded-sm"></div>
+<div class="w-3 h-3 bg-primary/40 rounded-sm"></div>
+<div class="w-3 h-3 bg-primary/70 rounded-sm"></div>
+<div class="w-3 h-3 bg-primary rounded-sm"></div>
+</div>
+<span>More</span>
+</div>
+</div>
+<!-- Heatmap Grid (Mocking 52 weeks) -->
+<div class="flex flex-col gap-1">
+<div class="grid grid-cols-[repeat(52,minmax(0,1fr))] gap-1" id="heatmap">
+<!-- Heatmap cells will be injected via JS for cleaner code -->
+</div>
+<div class="flex justify-between text-[10px] text-on-surface-variant uppercase font-label-caps px-1 mt-2">
+<span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full py-section-gap border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center px-gutter">
+<div class="flex flex-col items-center md:items-start gap-1">
+<h5 class="font-headline-md text-headline-md text-on-surface tracking-tighter">Kinetic</h5>
+<p class="text-on-surface-variant font-label-caps text-[10px]">© 2024 Kinetic Typing. All rights reserved.</p>
+</div>
+<div class="flex gap-gutter mt-stack-md md:mt-0">
+<a class="text-on-surface-variant hover:text-primary font-label-caps text-[12px] transition-colors" href="#">Privacy</a>
+<a class="text-on-surface-variant hover:text-primary font-label-caps text-[12px] transition-colors" href="#">Terms</a>
+<a class="text-on-surface-variant hover:text-primary font-label-caps text-[12px] transition-colors" href="#">Github</a>
+<a class="text-on-surface-variant hover:text-primary font-label-caps text-[12px] transition-colors" href="#">Contact</a>
+</div>
+</footer>
+</main>
+<script>
+        // Generate Activity Heatmap
+        const heatmap = document.getElementById('heatmap');
+        const intensityLevels = [
+            'bg-surface-container-highest',
+            'bg-primary/20', 
+            'bg-primary/40',
+            'bg-primary/70',
+            'bg-primary'
+        ];
+
+        // Create 7 rows (days) x 52 columns (weeks)
+        for (let row = 0; row < 7; row++) {
+            for (let col = 0; col < 52; col++) {
+                const cell = document.createElement('div');
+                cell.className = 'heatmap-cell w-full aspect-square';
+                
+                // Randomize intensity for mock data
+                const randomVal = Math.random();
+                let intensity;
+                if (randomVal > 0.9) intensity = intensityLevels[4];
+                else if (randomVal > 0.75) intensity = intensityLevels[3];
+                else if (randomVal > 0.6) intensity = intensityLevels[2];
+                else if (randomVal > 0.4) intensity = intensityLevels[1];
+                else intensity = intensityLevels[0];
+                
+                cell.classList.add(intensity);
+                heatmap.appendChild(cell);
+            }
+        }
+
+        // Add some micro-interactions
+        document.querySelectorAll('.glass-panel').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+                card.style.transition = 'all 0.3s ease';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>

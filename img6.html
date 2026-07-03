@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kinetic | Typing Test Setup</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        body {
+            font-family: 'Geist', sans-serif;
+            background-color: #10131a;
+            color: #e1e2ec;
+        }
+
+        .glass-panel {
+            background: rgba(24, 31, 41, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .card-active {
+            border-color: #adc6ff;
+            background: rgba(173, 198, 255, 0.05);
+            box-shadow: 0 0 20px rgba(173, 198, 255, 0.1);
+        }
+
+        .card-hover:hover {
+            border-color: rgba(173, 198, 255, 0.4);
+            transform: translateY(-2px);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .caret-blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#002e6a",
+                        "inverse-surface": "#e1e2ec",
+                        "surface-variant": "#32353c",
+                        "primary": "#adc6ff",
+                        "surface-bright": "#363941",
+                        "primary-fixed-dim": "#adc6ff",
+                        "surface-tint": "#adc6ff",
+                        "secondary-container": "#434a53",
+                        "on-tertiary-container": "#461f00",
+                        "on-tertiary-fixed": "#311400",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#001a42",
+                        "on-secondary-fixed-variant": "#404750",
+                        "on-primary-fixed-variant": "#004395",
+                        "inverse-on-surface": "#2e3038",
+                        "primary-container": "#4d8eff",
+                        "inverse-primary": "#005ac2",
+                        "surface-container-lowest": "#0b0e15",
+                        "background": "#10131a",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#dce3ee",
+                        "on-tertiary": "#502400",
+                        "on-secondary": "#2a313a",
+                        "surface-container-high": "#272a31",
+                        "tertiary": "#ffb786",
+                        "tertiary-fixed": "#ffdcc6",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#191b23",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "on-background": "#e1e2ec",
+                        "on-surface-variant": "#c2c6d6",
+                        "secondary-fixed-dim": "#c0c7d2",
+                        "outline-variant": "#424754",
+                        "surface-dim": "#10131a",
+                        "on-primary-container": "#00285d",
+                        "surface": "#10131a",
+                        "tertiary-container": "#df7412",
+                        "primary-fixed": "#d8e2ff",
+                        "surface-container-highest": "#32353c",
+                        "outline": "#8c909f",
+                        "on-secondary-container": "#b2b9c4",
+                        "secondary": "#c0c7d2",
+                        "on-surface": "#e1e2ec",
+                        "surface-container": "#1d2027",
+                        "on-secondary-fixed": "#151c24"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "stack-lg": "32px",
+                        "margin-mobile": "16px",
+                        "section-gap": "64px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-base": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "label-caps": ["Geist"],
+                        "mono-typing": ["JetBrains Mono"],
+                        "headline-md": ["Geist"],
+                        "headline-md-mobile": ["Geist"]
+                    },
+                    "fontSize": {
+                        "body-base": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "mono-typing": ["32px", {"lineHeight": "48px", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-md-mobile": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="flex min-h-screen bg-background">
+<!-- SideNavBar (Authority: JSON) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant/10 flex flex-col p-stack-md gap-stack-sm z-50">
+<div class="mb-stack-lg flex flex-col">
+<span class="font-headline-md text-headline-md text-primary tracking-tighter">Kinetic</span>
+<span class="text-label-caps font-label-caps text-outline uppercase tracking-widest mt-1">Precision Typing</span>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<!-- Home -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 active:scale-[0.98] rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[20px]">home</span>
+<span class="font-body-base text-body-base">Home</span>
+</a>
+<!-- Typing Test (ACTIVE) -->
+<a class="flex items-center gap-3 px-4 py-3 text-primary font-bold bg-primary/10 rounded-lg active:scale-[0.98] transition-transform duration-200 group" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">keyboard</span>
+<span class="font-body-base text-body-base">Typing Test</span>
+</a>
+<!-- History -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 active:scale-[0.98] rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+<span class="font-body-base text-body-base">History</span>
+</a>
+<!-- Analytics -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 active:scale-[0.98] rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="font-body-base text-body-base">Analytics</span>
+</a>
+<!-- Leaderboard -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 active:scale-[0.98] rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[20px]">leaderboard</span>
+<span class="font-body-base text-body-base">Leaderboard</span>
+</a>
+<div class="mt-auto pt-stack-md border-t border-outline-variant/10 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[20px]">person</span>
+<span class="font-body-base text-body-base">Profile</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-body-base text-body-base">Settings</span>
+</a>
+</div>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 relative overflow-hidden flex flex-col">
+<!-- Subtle Animated Background -->
+
+<!-- Top Bar for Context -->
+<header class="w-full px-gutter py-6 flex justify-between items-center z-10">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface">Test Setup</h1>
+<p class="text-on-surface-variant font-body-base text-body-base mt-2 max-w-lg">Configure your environment for the ultimate focus session. Select your parameters and start typing.</p>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-high/50 p-2 rounded-xl border border-outline-variant/10">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">speed</span>
+</div>
+<div class="pr-4">
+<p class="text-label-caps font-label-caps text-outline uppercase">Daily Goal</p>
+<p class="text-on-surface font-body-base">12/30 tests</p>
+</div>
+</div>
+</header>
+<section class="px-gutter py-stack-lg max-w-container-max mx-auto w-full z-10 flex-1 flex flex-col gap-stack-lg">
+<!-- Duration Selection -->
+<div class="space-y-4">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<h2 class="text-label-caps font-label-caps uppercase tracking-widest">Duration</h2>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+<button class="glass-panel card-hover card-active px-6 py-8 rounded-xl flex flex-col items-center justify-center group" onclick="selectCard(this, 'duration')">
+<span class="text-headline-md font-headline-md">10s</span>
+<span class="text-label-caps font-label-caps text-outline mt-1 group-hover:text-primary-container">Blitz</span>
+</button>
+<button class="glass-panel card-hover px-6 py-8 rounded-xl flex flex-col items-center justify-center group" onclick="selectCard(this, 'duration')">
+<span class="text-headline-md font-headline-md">30s</span>
+<span class="text-label-caps font-label-caps text-outline mt-1 group-hover:text-primary-container">Sprint</span>
+</button>
+<button class="glass-panel card-hover px-6 py-8 rounded-xl flex flex-col items-center justify-center group" onclick="selectCard(this, 'duration')">
+<span class="text-headline-md font-headline-md">45s</span>
+<span class="text-label-caps font-label-caps text-outline mt-1 group-hover:text-primary-container">Classic</span>
+</button>
+<button class="glass-panel card-hover px-6 py-8 rounded-xl flex flex-col items-center justify-center group" onclick="selectCard(this, 'duration')">
+<span class="text-headline-md font-headline-md">60s</span>
+<span class="text-label-caps font-label-caps text-outline mt-1 group-hover:text-primary-container">Endurance</span>
+</button>
+<button class="glass-panel card-hover px-6 py-8 rounded-xl flex flex-col items-center justify-center group border-dashed" onclick="selectCard(this, 'duration')">
+<span class="material-symbols-outlined text-outline mb-1">tune</span>
+<span class="text-body-base font-body-base">Custom</span>
+</button>
+</div>
+</div>
+<!-- Bento Layout for Mode and Difficulty -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-stack-lg">
+<!-- Mode Selection (8 columns) -->
+<div class="lg:col-span-8 space-y-4">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[18px]">category</span>
+<h2 class="text-label-caps font-label-caps uppercase tracking-widest">Mode</h2>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Words -->
+<div class="glass-panel card-hover card-active p-6 rounded-xl cursor-pointer group flex items-start gap-4" onclick="selectCard(this, 'mode')">
+<div class="bg-primary/10 p-3 rounded-lg text-primary">
+<span class="material-symbols-outlined">abc</span>
+</div>
+<div class="flex-1">
+<h3 class="text-headline-md font-headline-md text-on-surface">Words</h3>
+<p class="text-on-surface-variant font-body-base text-sm mt-1 leading-relaxed">Practice with a sequence of common and obscure English words.</p>
+</div>
+</div>
+<!-- Paragraph -->
+<div class="glass-panel card-hover p-6 rounded-xl cursor-pointer group flex items-start gap-4" onclick="selectCard(this, 'mode')">
+<div class="bg-surface-variant p-3 rounded-lg text-on-surface-variant group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">article</span>
+</div>
+<div class="flex-1">
+<h3 class="text-headline-md font-headline-md text-on-surface">Paragraph</h3>
+<p class="text-on-surface-variant font-body-base text-sm mt-1 leading-relaxed">Full prose paragraphs with complex punctuation and flow.</p>
+</div>
+</div>
+<!-- Quotes -->
+<div class="glass-panel card-hover p-6 rounded-xl cursor-pointer group flex items-start gap-4" onclick="selectCard(this, 'mode')">
+<div class="bg-surface-variant p-3 rounded-lg text-on-surface-variant group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">format_quote</span>
+</div>
+<div class="flex-1">
+<h3 class="text-headline-md font-headline-md text-on-surface">Quotes</h3>
+<p class="text-on-surface-variant font-body-base text-sm mt-1 leading-relaxed">Inspirational and historical quotes to test rhythm and pace.</p>
+</div>
+</div>
+<!-- Programming -->
+<div class="glass-panel card-hover p-6 rounded-xl cursor-pointer group flex items-start gap-4" onclick="selectCard(this, 'mode')">
+<div class="bg-surface-variant p-3 rounded-lg text-on-surface-variant group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">code</span>
+</div>
+<div class="flex-1">
+<h3 class="text-headline-md font-headline-md text-on-surface">Programming</h3>
+<p class="text-on-surface-variant font-body-base text-sm mt-1 leading-relaxed">Snippets of JavaScript, Python, and C++ with special characters.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Difficulty Selection (4 columns) -->
+<div class="lg:col-span-4 space-y-4">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[18px]">signal_cellular_alt</span>
+<h2 class="text-label-caps font-label-caps uppercase tracking-widest">Difficulty</h2>
+</div>
+<div class="flex flex-col gap-4">
+<button class="glass-panel card-hover px-6 py-4 rounded-xl flex items-center justify-between group" onclick="selectCard(this, 'diff')">
+<div class="flex flex-col items-start">
+<span class="text-body-base font-bold">Easy</span>
+<span class="text-xs text-outline group-hover:text-primary-container">Basic vocabulary</span>
+</div>
+<div class="flex gap-1">
+<div class="w-1.5 h-3 bg-primary rounded-full"></div>
+<div class="w-1.5 h-3 bg-outline/20 rounded-full"></div>
+<div class="w-1.5 h-3 bg-outline/20 rounded-full"></div>
+</div>
+</button>
+<button class="glass-panel card-hover card-active px-6 py-4 rounded-xl flex items-center justify-between group" onclick="selectCard(this, 'diff')">
+<div class="flex flex-col items-start">
+<span class="text-body-base font-bold">Medium</span>
+<span class="text-xs text-outline group-hover:text-primary-container">Balanced mix</span>
+</div>
+<div class="flex gap-1">
+<div class="w-1.5 h-3 bg-primary rounded-full"></div>
+<div class="w-1.5 h-3 bg-primary rounded-full"></div>
+<div class="w-1.5 h-3 bg-outline/20 rounded-full"></div>
+</div>
+</button>
+<button class="glass-panel card-hover px-6 py-4 rounded-xl flex items-center justify-between group" onclick="selectCard(this, 'diff')">
+<div class="flex flex-col items-start">
+<span class="text-body-base font-bold">Hard</span>
+<span class="text-xs text-outline group-hover:text-primary-container">Advanced &amp; rare words</span>
+</div>
+<div class="flex gap-1">
+<div class="w-1.5 h-3 bg-primary rounded-full"></div>
+<div class="w-1.5 h-3 bg-primary rounded-full"></div>
+<div class="w-1.5 h-3 bg-primary rounded-full"></div>
+</div>
+</button>
+</div>
+<!-- Keyboard Layout (Bonus Contextual Selection) -->
+<div class="mt-stack-md glass-panel p-4 rounded-xl flex items-center justify-between border border-primary/20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">keyboard_double_arrow_right</span>
+<span class="text-label-caps font-label-caps">Layout: QWERTY</span>
+</div>
+<button class="text-primary hover:underline text-label-caps font-label-caps">Change</button>
+</div>
+</div>
+</div>
+<!-- Start Practice Button Container -->
+<div class="mt-auto py-12 flex flex-col items-center gap-6">
+<div class="flex flex-col items-center text-center max-w-sm">
+<p class="text-on-surface-variant font-body-base text-sm">Ready to begin? Press <span class="px-1.5 py-0.5 rounded bg-surface-variant text-on-surface font-mono-typing text-xs border border-outline-variant/30">Enter</span> to start instantly.</p>
+</div>
+<button class="group relative overflow-hidden bg-primary text-on-primary px-16 py-6 rounded-2xl flex items-center gap-4 transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-[0_20px_50px_rgba(173,198,255,0.3)]">
+<!-- Animation overlay -->
+<div class="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out skew-x-[-20deg]"></div>
+<span class="font-headline-md text-headline-md tracking-tight uppercase">Start Practice</span>
+<span class="material-symbols-outlined text-[32px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<div class="flex items-center gap-8 text-outline">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span class="text-label-caps font-label-caps uppercase">Focus Mode On</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">volume_up</span>
+<span class="text-label-caps font-label-caps uppercase">Sound Off</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Dynamic Footer (Authority: JSON) -->
+<footer class="w-full py-stack-lg border-t border-outline-variant/10 bg-background/50 backdrop-blur-sm z-10">
+<div class="flex flex-col md:flex-row justify-between items-center px-gutter max-w-container-max mx-auto gap-4">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md text-on-surface tracking-tighter">Kinetic</span>
+<span class="text-on-surface-variant/40 font-body-base">|</span>
+<span class="text-on-surface-variant font-label-caps text-label-caps">© 2024 Kinetic Typing. All rights reserved.</span>
+</div>
+<div class="flex gap-gutter">
+<a class="text-outline hover:text-primary transition-colors font-label-caps text-label-caps uppercase tracking-widest" href="#">Privacy</a>
+<a class="text-outline hover:text-primary transition-colors font-label-caps text-label-caps uppercase tracking-widest" href="#">Terms</a>
+<a class="text-outline hover:text-primary transition-colors font-label-caps text-label-caps uppercase tracking-widest" href="#">Github</a>
+<a class="text-outline hover:text-primary transition-colors font-label-caps text-label-caps uppercase tracking-widest" href="#">Contact</a>
+</div>
+</div>
+</footer>
+</main>
+<script>
+        function selectCard(element, type) {
+            // Remove active class from all buttons in the same group/parent context
+            const parent = element.parentElement;
+            const buttons = parent.querySelectorAll('button, .glass-panel');
+            
+            buttons.forEach(btn => {
+                btn.classList.remove('card-active');
+                // Reset child colors if needed
+                const icon = btn.querySelector('.material-symbols-outlined');
+                if (icon) {
+                    icon.style.fontVariationSettings = "'FILL' 0";
+                }
+            });
+            
+            // Add active class to clicked element
+            element.classList.add('card-active');
+            
+            // Visual feedback for icon
+            const icon = element.querySelector('.material-symbols-outlined');
+            if (icon) {
+                icon.style.fontVariationSettings = "'FILL' 1";
+            }
+
+            // Simple scale pop
+            element.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                element.style.transform = '';
+            }, 150);
+        }
+
+        // Shortcut listener
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const startBtn = document.querySelector('button.bg-primary');
+                startBtn.click();
+            }
+        });
+    </script>
+</body></html>

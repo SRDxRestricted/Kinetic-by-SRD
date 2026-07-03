@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kinetic | Test Results</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Geist:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #10131a;
+            color: #e1e2ec;
+            font-family: 'Geist', sans-serif;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(24, 31, 41, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .text-glow-primary {
+            text-shadow: 0 0 20px rgba(173, 198, 255, 0.3);
+        }
+        .accuracy-circle {
+            transition: stroke-dashoffset 1s ease-out;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up {
+            animation: fadeUp 0.3s ease-out forwards;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#002e6a",
+                    "inverse-surface": "#e1e2ec",
+                    "surface-variant": "#32353c",
+                    "primary": "#adc6ff",
+                    "surface-bright": "#363941",
+                    "primary-fixed-dim": "#adc6ff",
+                    "surface-tint": "#adc6ff",
+                    "secondary-container": "#434a53",
+                    "on-tertiary-container": "#461f00",
+                    "on-tertiary-fixed": "#311400",
+                    "on-error": "#690005",
+                    "on-primary-fixed": "#001a42",
+                    "on-secondary-fixed-variant": "#404750",
+                    "on-primary-fixed-variant": "#004395",
+                    "inverse-on-surface": "#2e3038",
+                    "primary-container": "#4d8eff",
+                    "inverse-primary": "#005ac2",
+                    "surface-container-lowest": "#0b0e15",
+                    "background": "#10131a",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed": "#dce3ee",
+                    "on-tertiary": "#502400",
+                    "on-secondary": "#2a313a",
+                    "surface-container-high": "#272a31",
+                    "tertiary": "#ffb786",
+                    "tertiary-fixed": "#ffdcc6",
+                    "error-container": "#93000a",
+                    "surface-container-low": "#191b23",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "on-background": "#e1e2ec",
+                    "on-surface-variant": "#c2c6d6",
+                    "secondary-fixed-dim": "#c0c7d2",
+                    "outline-variant": "#424754",
+                    "surface-dim": "#10131a",
+                    "on-primary-container": "#00285d",
+                    "surface": "#10131a",
+                    "tertiary-container": "#df7412",
+                    "primary-fixed": "#d8e2ff",
+                    "surface-container-highest": "#32353c",
+                    "outline": "#8c909f",
+                    "on-secondary-container": "#b2b9c4",
+                    "secondary": "#c0c7d2",
+                    "on-surface": "#e1e2ec",
+                    "surface-container": "#1d2027",
+                    "on-secondary-fixed": "#151c24"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "container-max": "1200px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px",
+                    "section-gap": "64px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "body-base": ["Geist"],
+                    "display-lg": ["Geist"],
+                    "label-caps": ["Geist"],
+                    "mono-typing": ["JetBrains Mono"],
+                    "headline-md": ["Geist"],
+                    "headline-md-mobile": ["Geist"]
+            },
+            "fontSize": {
+                    "body-base": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "mono-typing": ["32px", {"lineHeight": "48px", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background">
+<!-- Sidebar Navigation Shell -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant/10 flex flex-col p-stack-md gap-stack-sm z-50">
+<div class="mb-stack-lg px-2">
+<h1 class="font-headline-md text-headline-md text-primary tracking-tighter">Kinetic</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-60">Precision Typing</p>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 p-3 rounded-lg flex items-center gap-3 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-body-base text-body-base">Home</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 p-3 rounded-lg flex items-center gap-3 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">keyboard</span>
+<span class="font-body-base text-body-base">Typing Test</span>
+</a>
+<a class="text-primary font-bold bg-primary/10 rounded-lg p-3 flex items-center gap-3 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-body-base text-body-base">History</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 p-3 rounded-lg flex items-center gap-3 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body-base text-body-base">Analytics</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 p-3 rounded-lg flex items-center gap-3 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-body-base text-body-base">Leaderboard</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-1 border-t border-outline-variant/10 pt-stack-md">
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 p-3 rounded-lg flex items-center gap-3 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-body-base text-body-base">Profile</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 p-3 rounded-lg flex items-center gap-3 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-base text-body-base">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen px-gutter py-section-gap relative">
+<!-- Performance Achievement Banner -->
+<div class="max-w-container-max mx-auto mb-stack-lg animate-fade-up">
+<div class="bg-primary/5 border border-primary/20 rounded-xl p-4 flex items-center gap-4 overflow-hidden relative">
+
+<div class="bg-primary/20 p-2 rounded-full flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+</div>
+<div class="z-10">
+<p class="font-headline-md text-headline-md text-primary">New Personal Best!</p>
+<p class="font-body-base text-body-base text-on-surface-variant">You outpaced your previous record by 4.2 WPM.</p>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto">
+<!-- Hero Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-end mb-section-gap">
+<!-- Large WPM Hero -->
+<div class="md:col-span-8 animate-fade-up delay-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest block mb-2">Final Speed</span>
+<div class="flex items-baseline gap-4">
+<h2 class="font-display-lg text-primary text-[120px] leading-none font-extrabold tracking-tighter text-glow-primary">108</h2>
+<span class="font-headline-md text-headline-md text-on-surface-variant opacity-40 mb-4">WPM</span>
+</div>
+<!-- Performance Trend Chart (Simplified CSS drawing) -->
+<div class="h-32 w-full glass-panel rounded-xl mt-stack-lg relative overflow-hidden flex items-end px-4 py-2 gap-1">
+<div class="h-[20%] w-full bg-primary/20 rounded-t-sm"></div>
+<div class="h-[35%] w-full bg-primary/20 rounded-t-sm"></div>
+<div class="h-[30%] w-full bg-primary/20 rounded-t-sm"></div>
+<div class="h-[50%] w-full bg-primary/20 rounded-t-sm"></div>
+<div class="h-[65%] w-full bg-primary/20 rounded-t-sm"></div>
+<div class="h-[60%] w-full bg-primary/20 rounded-t-sm"></div>
+<div class="h-[80%] w-full bg-primary/20 rounded-t-sm"></div>
+<div class="h-[75%] w-full bg-primary/20 rounded-t-sm"></div>
+<div class="h-[90%] w-full bg-primary/20 rounded-t-sm"></div>
+<div class="h-[85%] w-full bg-primary/20 rounded-t-sm"></div>
+<div class="h-[95%] w-full bg-primary/30 rounded-t-sm border-t-2 border-primary"></div>
+<div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+<span class="font-label-caps text-label-caps tracking-widest">LIVE SESSION TRACKER</span>
+</div>
+</div>
+</div>
+<!-- Circular Accuracy Hero -->
+<div class="md:col-span-4 flex flex-col items-center justify-end animate-fade-up delay-2">
+<div class="relative w-48 h-48 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-outline-variant/10" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary accuracy-circle" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-dasharray="552.92" stroke-dashoffset="11" stroke-width="8" style="stroke-linecap: round;"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-display-lg text-[48px] leading-none text-on-surface font-bold">98%</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant opacity-60">Accuracy</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Breakdown Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-stack-md animate-fade-up delay-3">
+<!-- Raw WPM -->
+<div class="glass-panel p-stack-md rounded-xl group hover:border-primary/30 transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-on-surface-variant opacity-40 group-hover:text-primary transition-colors">speed</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">RAW</span>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface">114</div>
+<p class="text-label-caps text-on-surface-variant/60">Gross keystrokes/min</p>
+</div>
+<!-- Consistency -->
+<div class="glass-panel p-stack-md rounded-xl group hover:border-primary/30 transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-on-surface-variant opacity-40 group-hover:text-primary transition-colors">query_stats</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">CONSISTENCY</span>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface">92.4%</div>
+<p class="text-label-caps text-on-surface-variant/60">Stability of rhythm</p>
+</div>
+<!-- Characters -->
+<div class="glass-panel p-stack-md rounded-xl md:col-span-2 group hover:border-primary/30 transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-on-surface-variant opacity-40 group-hover:text-primary transition-colors">text_fields</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">CHARACTER BREAKDOWN</span>
+</div>
+<div class="flex gap-8">
+<div>
+<div class="font-headline-md text-headline-md text-on-surface">542</div>
+<p class="text-label-caps text-on-surface-variant/60">Correct</p>
+</div>
+<div class="border-l border-outline-variant/20 pl-8">
+<div class="font-headline-md text-headline-md text-error">12</div>
+<p class="text-label-caps text-error/60">Incorrect</p>
+</div>
+<div class="border-l border-outline-variant/20 pl-8">
+<div class="font-headline-md text-headline-md text-on-surface-variant">0</div>
+<p class="text-label-caps text-on-surface-variant/60">Missed</p>
+</div>
+</div>
+</div>
+<!-- Errors -->
+<div class="glass-panel p-stack-md rounded-xl group hover:border-primary/30 transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-error opacity-60">warning</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">ERRORS</span>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface">3</div>
+<p class="text-label-caps text-on-surface-variant/60">Total mistakes</p>
+</div>
+<!-- Time -->
+<div class="glass-panel p-stack-md rounded-xl group hover:border-primary/30 transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-on-surface-variant opacity-40 group-hover:text-primary transition-colors">schedule</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">TIME</span>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface">60s</div>
+<p class="text-label-caps text-on-surface-variant/60">Session duration</p>
+</div>
+<!-- Action Cards -->
+<div class="md:col-span-2 flex gap-4">
+<button class="flex-1 bg-primary text-on-primary font-bold rounded-xl flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all duration-200">
+<span class="material-symbols-outlined">replay</span>
+                        Retry Test
+                    </button>
+<button class="flex-1 bg-surface-container-highest text-on-surface font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-surface-bright active:scale-95 transition-all duration-200 border border-outline-variant/20">
+<span class="material-symbols-outlined">share</span>
+                        Share
+                    </button>
+</div>
+</div>
+<!-- Detailed Error Log / Activity Heatmap Placeholder -->
+<div class="mt-section-gap animate-fade-up delay-3">
+<div class="flex items-center justify-between mb-stack-md">
+<h3 class="font-headline-md text-headline-md">Session Details</h3>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-primary/10 text-primary text-[10px] uppercase font-bold rounded-full tracking-wider border border-primary/20">Timed 60</span>
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-[10px] uppercase font-bold rounded-full tracking-wider">English 5k</span>
+</div>
+</div>
+<div class="w-full glass-panel rounded-xl p-stack-lg min-h-[200px] flex items-center justify-center relative overflow-hidden">
+
+<div class="flex flex-wrap gap-2 max-w-2xl justify-center z-10">
+<!-- Simulated Word Cloud / Heatmap -->
+<span class="text-on-surface opacity-80 text-xl font-mono-typing">technology</span>
+<span class="text-error font-mono-typing text-xl underline decoration-error/50">precision</span>
+<span class="text-on-surface opacity-40 text-lg font-mono-typing">minimalism</span>
+<span class="text-on-surface opacity-90 text-2xl font-mono-typing">performance</span>
+<span class="text-on-surface opacity-60 text-xl font-mono-typing">kinetic</span>
+<span class="text-on-surface opacity-30 text-lg font-mono-typing">interface</span>
+<span class="text-on-surface opacity-70 text-xl font-mono-typing">efficiency</span>
+<span class="text-on-surface opacity-50 text-2xl font-mono-typing">flow</span>
+<span class="text-on-surface opacity-90 text-xl font-mono-typing">mastery</span>
+<span class="text-error font-mono-typing text-xl underline decoration-error/50">velocity</span>
+<span class="text-on-surface opacity-40 text-lg font-mono-typing">rhythm</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="mt-section-gap border-t border-outline-variant/10 pt-stack-lg max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-stack-md pb-stack-lg">
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-60">© 2024 Kinetic Typing. All rights reserved.</p>
+<div class="flex gap-gutter">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Terms</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Github</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+</footer>
+</main>
+<script>
+        // Micro-interaction for the accuracy circle stroke-dashoffset animation
+        window.addEventListener('DOMContentLoaded', () => {
+            const circle = document.querySelector('.accuracy-circle');
+            if (circle) {
+                // Set the correct dash offset based on accuracy (98%)
+                // Circumference = 2 * PI * r = 2 * 3.14159 * 88 = 552.92
+                // 98% is 552.92 * (1 - 0.98) = 11.05
+                setTimeout(() => {
+                    circle.style.strokeDashoffset = '11.05';
+                }, 300);
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kinetic | Typing Test</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Geist:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .caret {
+            animation: blink 1s step-end infinite;
+            box-shadow: 0 0 4px #adc6ff;
+        }
+        .glass-panel {
+            background: rgba(24, 31, 41, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .typing-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .untyped { color: #475569; }
+        .correct { color: #e1e2ec; }
+        .incorrect { color: #ffb4ab; text-decoration: underline wavy #93000a; }
+        
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#002e6a",
+                        "inverse-surface": "#e1e2ec",
+                        "surface-variant": "#32353c",
+                        "primary": "#adc6ff",
+                        "surface-bright": "#363941",
+                        "primary-fixed-dim": "#adc6ff",
+                        "surface-tint": "#adc6ff",
+                        "secondary-container": "#434a53",
+                        "on-tertiary-container": "#461f00",
+                        "on-tertiary-fixed": "#311400",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#001a42",
+                        "on-secondary-fixed-variant": "#404750",
+                        "on-primary-fixed-variant": "#004395",
+                        "inverse-on-surface": "#2e3038",
+                        "primary-container": "#4d8eff",
+                        "inverse-primary": "#005ac2",
+                        "surface-container-lowest": "#0b0e15",
+                        "background": "#10131a",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#dce3ee",
+                        "on-tertiary": "#502400",
+                        "on-secondary": "#2a313a",
+                        "surface-container-high": "#272a31",
+                        "tertiary": "#ffb786",
+                        "tertiary-fixed": "#ffdcc6",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#191b23",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "on-background": "#e1e2ec",
+                        "on-surface-variant": "#c2c6d6",
+                        "secondary-fixed-dim": "#c0c7d2",
+                        "outline-variant": "#424754",
+                        "surface-dim": "#10131a",
+                        "on-primary-container": "#00285d",
+                        "surface": "#10131a",
+                        "tertiary-container": "#df7412",
+                        "primary-fixed": "#d8e2ff",
+                        "surface-container-highest": "#32353c",
+                        "outline": "#8c909f",
+                        "on-secondary-container": "#b2b9c4",
+                        "secondary": "#c0c7d2",
+                        "on-surface": "#e1e2ec",
+                        "surface-container": "#1d2027",
+                        "on-secondary-fixed": "#151c24"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "stack-lg": "32px",
+                        "margin-mobile": "16px",
+                        "section-gap": "64px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-base": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "label-caps": ["Geist"],
+                        "mono-typing": ["JetBrains Mono"],
+                        "headline-md": ["Geist"],
+                        "headline-md-mobile": ["Geist"]
+                    },
+                    "fontSize": {
+                        "body-base": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "mono-typing": ["32px", {"lineHeight": "48px", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-md-mobile": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-base overflow-hidden">
+<!-- Progress Bar (Top Anchor) -->
+<div class="fixed top-0 left-0 w-full h-1 bg-surface-container-low z-50">
+<div class="h-full bg-primary transition-all duration-300 ease-out" id="test-progress" style="width: 35%"></div>
+</div>
+<div class="flex h-screen w-full">
+<!-- Sidebar Navigation (Collapsed for Focus) -->
+<nav class="group h-screen w-16 hover:w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant/10 z-40 transition-all duration-300 flex flex-col p-4 gap-4">
+<div class="flex items-center gap-4 mb-8 overflow-hidden whitespace-nowrap">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary text-xl" style="font-variation-settings: 'FILL' 1;">keyboard</span>
+</div>
+<span class="font-headline-md text-primary opacity-0 group-hover:opacity-100 transition-opacity">Kinetic</span>
+</div>
+<div class="flex flex-col gap-2 flex-grow overflow-hidden">
+<!-- Navigation Items -->
+<a class="flex items-center gap-4 p-2 text-primary font-bold bg-primary/10 rounded-lg whitespace-nowrap transition-all duration-200" href="#">
+<span class="material-symbols-outlined shrink-0">keyboard</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity">Typing Test</span>
+</a>
+<a class="flex items-center gap-4 p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg whitespace-nowrap transition-all duration-200" href="#">
+<span class="material-symbols-outlined shrink-0">history</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity">History</span>
+</a>
+<a class="flex items-center gap-4 p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg whitespace-nowrap transition-all duration-200" href="#">
+<span class="material-symbols-outlined shrink-0">analytics</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity">Analytics</span>
+</a>
+<a class="flex items-center gap-4 p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg whitespace-nowrap transition-all duration-200" href="#">
+<span class="material-symbols-outlined shrink-0">leaderboard</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity">Leaderboard</span>
+</a>
+</div>
+<div class="mt-auto border-t border-outline-variant/10 pt-4 overflow-hidden whitespace-nowrap">
+<a class="flex items-center gap-4 p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined shrink-0">settings</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Workspace -->
+<main class="flex-grow ml-16 flex flex-col relative">
+<!-- Live Stats Header -->
+<header class="w-full max-w-container-max mx-auto px-gutter py-12 flex justify-between items-end">
+<div class="flex gap-12">
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-outline uppercase tracking-widest">WPM</span>
+<span class="text-display-lg font-display-lg text-primary" id="stat-wpm">114</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-outline uppercase tracking-widest">Accuracy</span>
+<span class="text-display-lg font-display-lg text-on-surface" id="stat-accuracy">98.2%</span>
+</div>
+</div>
+<div class="flex gap-8 pb-2">
+<div class="flex items-center gap-2 px-4 py-2 rounded-full glass-panel">
+<span class="material-symbols-outlined text-error text-lg" style="font-variation-settings: 'FILL' 1;">error</span>
+<span class="text-body-base font-mono-typing text-on-surface" id="stat-errors">2</span>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 rounded-full glass-panel">
+<span class="material-symbols-outlined text-outline text-lg">description</span>
+<span class="text-body-base font-mono-typing text-on-surface" id="stat-chars">452</span>
+</div>
+<div class="flex items-center gap-3 px-6 py-2 rounded-full bg-primary-container text-on-primary-container">
+<span class="material-symbols-outlined text-xl">timer</span>
+<span class="text-headline-md font-mono-typing" id="stat-timer">0:42</span>
+</div>
+</div>
+</header>
+<!-- Typing Canvas -->
+<section class="flex-grow flex items-center justify-center typing-container px-gutter">
+<div class="relative font-mono-typing text-mono-typing select-none leading-relaxed text-center" id="typing-stage">
+<!-- Word Container -->
+<div class="relative inline-block">
+<span class="correct">the</span>
+<span class="correct">quick</span>
+<span class="correct">brown</span>
+<span class="correct">fox</span>
+<span class="correct">jumps</span>
+<span class="incorrect">ovre</span>
+<span class="untyped">the</span>
+<span class="untyped">lazy</span>
+<span class="relative">
+<span class="untyped">dog</span>
+<!-- Blinking Caret -->
+<div class="caret absolute -left-1 top-1 w-[2px] h-10 bg-primary rounded-full"></div>
+</span>
+<span class="untyped">and</span>
+<span class="untyped">disappears</span>
+<span class="untyped">into</span>
+<span class="untyped">the</span>
+<span class="untyped">darkness</span>
+<span class="untyped">of</span>
+<span class="untyped">the</span>
+<span class="untyped">infinite</span>
+<span class="untyped">forest</span>
+<span class="untyped">where</span>
+<span class="untyped">precision</span>
+<span class="untyped">meets</span>
+<span class="untyped">pure</span>
+<span class="untyped">speed</span>
+</div>
+</div>
+</section>
+<!-- Footer Keyboard Ghosting -->
+<footer class="w-full py-12 flex justify-center opacity-10 pointer-events-none">
+<div class="flex flex-col gap-2 items-center">
+<div class="flex gap-2">
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">Q</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">W</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">E</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps bg-primary text-on-primary border-none scale-95 transition-transform duration-75">R</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">T</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">Y</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">U</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">I</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">O</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">P</div>
+</div>
+<div class="flex gap-2">
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">A</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">S</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">D</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">F</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">G</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">H</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">J</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">K</div>
+<div class="w-12 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">L</div>
+</div>
+<div class="flex gap-2">
+<div class="w-32 h-12 border border-on-surface rounded-lg flex items-center justify-center font-label-caps">SPACE</div>
+</div>
+</div>
+</footer>
+<!-- Atmospheric Overlay -->
+<div class="absolute bottom-0 right-0 p-8 flex gap-4">
+<button class="p-4 rounded-full glass-panel text-on-surface-variant hover:text-primary transition-all duration-200 active:scale-90">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+<button class="p-4 rounded-full glass-panel text-on-surface-variant hover:text-primary transition-all duration-200 active:scale-90">
+<span class="material-symbols-outlined">settings_suggest</span>
+</button>
+</div>
+</main>
+</div>
+<!-- Hidden Input for Logic -->
+<input autofocus="" class="absolute opacity-0 pointer-events-none" id="typing-input" type="text"/>
+<script>
+        // Micro-interaction for Key Press Confirmation
+        document.addEventListener('keydown', (e) => {
+            // Visual feedback on stage
+            const stage = document.getElementById('typing-stage');
+            stage.style.transform = 'scale(0.998)';
+            setTimeout(() => stage.style.transform = 'scale(1)', 50);
+
+            // Mock update stats for visual flair
+            if (Math.random() > 0.8) {
+                const wpm = document.getElementById('stat-wpm');
+                const current = parseInt(wpm.innerText);
+                wpm.innerText = current + (Math.random() > 0.5 ? 1 : -1);
+            }
+        });
+
+        // Always keep input focused
+        document.addEventListener('click', () => {
+            document.getElementById('typing-input').focus();
+        });
+
+        // Progress bar simulation
+        let progress = 35;
+        setInterval(() => {
+            progress = (progress + 0.1) % 100;
+            document.getElementById('test-progress').style.width = progress + '%';
+        }, 1000);
+    </script>
+</body></html>

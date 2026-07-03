@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kinetic | Analytics Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#002e6a",
+                    "inverse-surface": "#e1e2ec",
+                    "surface-variant": "#32353c",
+                    "primary": "#adc6ff",
+                    "surface-bright": "#363941",
+                    "primary-fixed-dim": "#adc6ff",
+                    "surface-tint": "#adc6ff",
+                    "secondary-container": "#434a53",
+                    "on-tertiary-container": "#461f00",
+                    "on-tertiary-fixed": "#311400",
+                    "on-error": "#690005",
+                    "on-primary-fixed": "#001a42",
+                    "on-secondary-fixed-variant": "#404750",
+                    "on-primary-fixed-variant": "#004395",
+                    "inverse-on-surface": "#2e3038",
+                    "primary-container": "#4d8eff",
+                    "inverse-primary": "#005ac2",
+                    "surface-container-lowest": "#0b0e15",
+                    "background": "#10131a",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed": "#dce3ee",
+                    "on-tertiary": "#502400",
+                    "on-secondary": "#2a313a",
+                    "surface-container-high": "#272a31",
+                    "tertiary": "#ffb786",
+                    "tertiary-fixed": "#ffdcc6",
+                    "error-container": "#93000a",
+                    "surface-container-low": "#191b23",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "on-background": "#e1e2ec",
+                    "on-surface-variant": "#c2c6d6",
+                    "secondary-fixed-dim": "#c0c7d2",
+                    "outline-variant": "#424754",
+                    "surface-dim": "#10131a",
+                    "on-primary-container": "#00285d",
+                    "surface": "#10131a",
+                    "tertiary-container": "#df7412",
+                    "primary-fixed": "#d8e2ff",
+                    "surface-container-highest": "#32353c",
+                    "outline": "#8c909f",
+                    "on-secondary-container": "#b2b9c4",
+                    "secondary": "#c0c7d2",
+                    "on-surface": "#e1e2ec",
+                    "surface-container": "#1d2027",
+                    "on-secondary-fixed": "#151c24"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "container-max": "1200px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px",
+                    "section-gap": "64px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "body-base": ["Geist"],
+                    "display-lg": ["Geist"],
+                    "label-caps": ["Geist"],
+                    "mono-typing": ["JetBrains Mono"],
+                    "headline-md": ["Geist"],
+                    "headline-md-mobile": ["Geist"]
+            },
+            "fontSize": {
+                    "body-base": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "mono-typing": ["32px", {"lineHeight": "48px", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        body {
+            background-color: #10131a;
+            color: #e1e2ec;
+            font-family: 'Geist', sans-serif;
+            overflow-x: hidden;
+        }
+        .chart-gradient {
+            background: linear-gradient(180deg, rgba(173, 198, 255, 0.1) 0%, rgba(173, 198, 255, 0) 100%);
+        }
+        .glass-panel {
+            background: rgba(24, 31, 41, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .heatmap-cell {
+            aspect-ratio: 1/1;
+            border-radius: 2px;
+            transition: all 0.2s ease;
+        }
+        .heatmap-cell:hover {
+            transform: scale(1.2);
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(173, 198, 255, 0.3);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #10131a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #32353c;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #424754;
+        }
+    </style>
+</head>
+<body class="dark selection:bg-primary/30">
+<!-- SideNavBar Integration -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-container-low border-r border-outline-variant/10 flex flex-col p-stack-md gap-stack-sm z-50">
+<div class="flex items-center gap-3 px-2 mb-stack-lg">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary">keyboard</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md text-primary tracking-tighter">Kinetic</h1>
+<p class="text-[10px] text-outline uppercase tracking-widest font-bold">Precision Typing</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">home</span>
+<span class="font-body-base text-body-base">Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">keyboard</span>
+<span class="font-body-base text-body-base">Typing Test</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">history</span>
+<span class="font-body-base text-body-base">History</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary font-bold bg-primary/10 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">analytics</span>
+<span class="font-body-base text-body-base">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">leaderboard</span>
+<span class="font-body-base text-body-base">Leaderboard</span>
+</a>
+<div class="mt-auto pt-stack-lg flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">person</span>
+<span class="font-body-base text-body-base">Profile</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all duration-200 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">settings</span>
+<span class="font-body-base text-body-base">Settings</span>
+</a>
+</div>
+</nav>
+<div class="p-3 bg-surface-container rounded-xl flex items-center gap-3 mt-4">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-bright">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a young tech enthusiast with clean lighting, shallow depth of field, and a dark obsidian background, matching a sleek minimalist UI design aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCriMuJiUWqdroV-bzdYtkv1TC-UQGlNTKf81zz2UDe-ZX4u0WUyDMlBmtLNclOmGpM9-0ByQMzKXKEEJl_kk0Hw5Qn2OAD47r5QskSvsMijXUaEa8-5YiCXotJgUk9sZjpriM8p4UUzVlskBkTI2uPBbJXPwz6zGv8mQ3cZ_4eXTfCCBoflLvy3D8D8lo-SR7UmsWFWofFztvOpVMm_IXaIjWOXW4kKYzIZ1d6HRJfEhRDqaXAH55X_YKV8RIiE2EaIzOGAwTU_1c"/>
+</div>
+<div class="overflow-hidden">
+<p class="text-sm font-bold text-on-surface truncate">Alex Rivera</p>
+<p class="text-[10px] text-outline truncate uppercase">Pro Tier Member</p>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-64 min-h-screen p-stack-lg max-w-[1400px]">
+<!-- Header -->
+<header class="flex flex-col md:flex-row md:items-end justify-between mb-stack-lg gap-gutter">
+<div>
+<h2 class="font-display-lg text-display-lg text-on-surface">Analytics Dashboard</h2>
+<p class="font-body-base text-on-surface-variant">Comprehensive breakdown of your typing performance over the last 30 days.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="bg-surface-container-high hover:bg-surface-container-highest text-on-surface px-4 py-2 rounded-lg font-label-caps flex items-center gap-2 transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                    Last 30 Days
+                </button>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-caps flex items-center gap-2 transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm">download</span>
+                    Export PDF
+                </button>
+</div>
+</header>
+<!-- Top Summary Cards (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-stack-lg">
+<div class="glass-panel p-stack-md rounded-xl">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">speed</span>
+<span class="text-xs font-bold text-tertiary flex items-center gap-1">+4.2% <span class="material-symbols-outlined text-[14px]">trending_up</span></span>
+</div>
+<p class="text-on-surface-variant font-label-caps mb-1">Peak WPM</p>
+<h3 class="text-4xl font-headline-md text-on-surface">128</h3>
+<p class="text-xs text-outline mt-2 italic">Previous high: 122 WPM</p>
+</div>
+<div class="glass-panel p-stack-md rounded-xl">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-tertiary bg-tertiary/10 p-2 rounded-lg">target</span>
+<span class="text-xs font-bold text-primary flex items-center gap-1">+0.5% <span class="material-symbols-outlined text-[14px]">trending_up</span></span>
+</div>
+<p class="text-on-surface-variant font-label-caps mb-1">Avg Accuracy</p>
+<h3 class="text-4xl font-headline-md text-on-surface">98.4%</h3>
+<p class="text-xs text-outline mt-2 italic">Global average: 92.1%</p>
+</div>
+<div class="glass-panel p-stack-md rounded-xl">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-on-primary-container bg-primary-container/20 p-2 rounded-lg">timer</span>
+<span class="text-xs font-bold text-on-surface-variant">Stable</span>
+</div>
+<p class="text-on-surface-variant font-label-caps mb-1">Consistency Score</p>
+<h3 class="text-4xl font-headline-md text-on-surface">86.2</h3>
+<p class="text-xs text-outline mt-2 italic">High flow state detected</p>
+</div>
+<div class="glass-panel p-stack-md rounded-xl">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-error bg-error/10 p-2 rounded-lg">local_fire_department</span>
+<span class="text-xs font-bold text-error">New Record</span>
+</div>
+<p class="text-on-surface-variant font-label-caps mb-1">Practice Streak</p>
+<h3 class="text-4xl font-headline-md text-on-surface">14 Days</h3>
+<p class="text-xs text-outline mt-2 italic">Don't break the chain</p>
+</div>
+</div>
+<!-- Main Charts Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-stack-lg">
+<!-- Main WPM Trend (Line Chart) -->
+<div class="lg:col-span-8 glass-panel rounded-xl overflow-hidden flex flex-col">
+<div class="p-stack-md border-b border-outline-variant/10 flex justify-between items-center">
+<h4 class="font-headline-md text-on-surface">WPM Over Time</h4>
+<div class="flex gap-2">
+<span class="w-3 h-3 rounded-full bg-primary inline-block"></span>
+<span class="text-xs text-outline font-label-caps">Raw Speed</span>
+</div>
+</div>
+<div class="flex-1 p-stack-md min-h-[300px] relative flex items-end justify-between gap-2 overflow-hidden">
+<div class="absolute inset-0 chart-gradient pointer-events-none"></div>
+<!-- Mock Line Chart Path SVG -->
+<svg class="absolute bottom-0 left-0 w-full h-[80%] px-4" preserveaspectratio="none" viewbox="0 0 1000 100">
+<path class="text-primary" d="M0,80 Q100,75 200,60 T400,40 T600,55 T800,20 T1000,10" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-primary/5" d="M0,80 Q100,75 200,60 T400,40 T600,55 T800,20 T1000,10 L1000,100 L0,100 Z" fill="currentColor"></path>
+<!-- Data Points -->
+<circle class="fill-primary" cx="200" cy="60" r="4"></circle>
+<circle class="fill-primary" cx="400" cy="40" r="4"></circle>
+<circle class="fill-primary" cx="800" cy="20" r="4"></circle>
+<circle class="fill-primary" cx="1000" cy="10" r="4"></circle>
+</svg>
+<div class="z-10 flex flex-col justify-between h-full text-[10px] text-outline py-4">
+<span>140</span>
+<span>100</span>
+<span>60</span>
+<span>20</span>
+</div>
+<div class="z-10 w-full flex justify-between pt-4 mt-auto border-t border-outline-variant/10">
+<span class="text-[10px] text-outline">Oct 1</span>
+<span class="text-[10px] text-outline">Oct 7</span>
+<span class="text-[10px] text-outline">Oct 14</span>
+<span class="text-[10px] text-outline">Oct 21</span>
+<span class="text-[10px] text-outline">Today</span>
+</div>
+</div>
+</div>
+<!-- Radar Chart (Performance Distribution) -->
+<div class="lg:col-span-4 glass-panel rounded-xl flex flex-col">
+<div class="p-stack-md border-b border-outline-variant/10">
+<h4 class="font-headline-md text-on-surface">Performance Radar</h4>
+</div>
+<div class="flex-1 p-stack-md flex items-center justify-center relative min-h-[300px]">
+<!-- Radar Chart SVG Visual -->
+<svg class="w-full h-full max-w-[240px]" viewbox="0 0 200 200">
+<!-- Pentagons -->
+<polygon fill="none" points="100,10 190,75 160,180 40,180 10,75" stroke="#32353c" stroke-width="1"></polygon>
+<polygon fill="none" points="100,30 170,85 150,160 50,160 30,85" stroke="#32353c" stroke-width="1"></polygon>
+<polygon fill="none" points="100,50 150,95 130,140 70,140 50,95" stroke="#32353c" stroke-width="1"></polygon>
+<!-- Axis Lines -->
+<line stroke="#32353c" stroke-dasharray="2,2" x1="100" x2="100" y1="100" y2="10"></line>
+<line stroke="#32353c" stroke-dasharray="2,2" x1="100" x2="190" y1="100" y2="75"></line>
+<line stroke="#32353c" stroke-dasharray="2,2" x1="100" x2="160" y1="100" y2="180"></line>
+<line stroke="#32353c" stroke-dasharray="2,2" x1="100" x2="40" y1="100" y2="180"></line>
+<line stroke="#32353c" stroke-dasharray="2,2" x1="100" x2="10" y1="100" y2="75"></line>
+<!-- Data Web -->
+<polygon fill="rgba(173, 198, 255, 0.2)" points="100,20 180,80 140,150 60,170 40,90" stroke="#adc6ff" stroke-width="2"></polygon>
+<!-- Labels -->
+<text class="fill-outline text-[10px] font-label-caps" text-anchor="middle" x="100" y="5">Speed</text>
+<text class="fill-outline text-[10px] font-label-caps" text-anchor="start" x="195" y="75">Accuracy</text>
+<text class="fill-outline text-[10px] font-label-caps" text-anchor="middle" x="165" y="195">Endurance</text>
+<text class="fill-outline text-[10px] font-label-caps" text-anchor="middle" x="35" y="195">Rhythm</text>
+<text class="fill-outline text-[10px] font-label-caps" text-anchor="end" x="5" y="75">Consistency</text>
+</svg>
+</div>
+</div>
+</div>
+<!-- Weekly Activity & Bar Chart -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter mb-stack-lg">
+<!-- Weekly Practice (Bar Chart) -->
+<div class="glass-panel rounded-xl p-stack-md">
+<h4 class="font-headline-md text-on-surface mb-6">Words Typed (Weekly)</h4>
+<div class="flex items-end justify-between h-48 gap-4 px-2">
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary/20 rounded-t-lg transition-all hover:bg-primary/40 h-[60%]"></div>
+<span class="text-[10px] text-outline font-label-caps">Mon</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary/20 rounded-t-lg transition-all hover:bg-primary/40 h-[85%]"></div>
+<span class="text-[10px] text-outline font-label-caps">Tue</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary/20 rounded-t-lg transition-all hover:bg-primary/40 h-[45%]"></div>
+<span class="text-[10px] text-outline font-label-caps">Wed</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary/80 rounded-t-lg transition-all h-[95%]"></div>
+<span class="text-[10px] text-primary font-bold font-label-caps">Thu</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary/20 rounded-t-lg transition-all hover:bg-primary/40 h-[70%]"></div>
+<span class="text-[10px] text-outline font-label-caps">Fri</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary/20 rounded-t-lg transition-all hover:bg-primary/40 h-[30%]"></div>
+<span class="text-[10px] text-outline font-label-caps">Sat</span>
+</div>
+<div class="flex flex-col items-center flex-1 gap-2">
+<div class="w-full bg-primary/20 rounded-t-lg transition-all hover:bg-primary/40 h-[20%]"></div>
+<span class="text-[10px] text-outline font-label-caps">Sun</span>
+</div>
+</div>
+</div>
+<!-- Heatmap (Activity Grid) -->
+<div class="glass-panel rounded-xl p-stack-md flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-headline-md text-on-surface">365 Day Activity</h4>
+<div class="flex items-center gap-2 text-[10px] text-outline uppercase font-bold tracking-widest">
+<span>Less</span>
+<div class="flex gap-1">
+<div class="w-3 h-3 bg-surface-container-highest rounded-sm"></div>
+<div class="w-3 h-3 bg-primary/30 rounded-sm"></div>
+<div class="w-3 h-3 bg-primary/60 rounded-sm"></div>
+<div class="w-3 h-3 bg-primary rounded-sm"></div>
+</div>
+<span>More</span>
+</div>
+</div>
+<div class="grid grid-cols-[repeat(26,minmax(0,1fr))] gap-1 overflow-x-auto pb-2">
+<!-- Generating a Mock Heatmap (52 weeks x 7 days scaled down) -->
+<script>
+                        const gridParent = document.currentScript.parentElement;
+                        const colors = ['bg-surface-container-highest', 'bg-primary/20', 'bg-primary/40', 'bg-primary/60', 'bg-primary'];
+                        for (let i = 0; i < 26 * 7; i++) {
+                            const div = document.createElement('div');
+                            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                            div.className = `heatmap-cell ${randomColor}`;
+                            gridParent.appendChild(div);
+                        }
+                    </script>
+</div>
+<div class="mt-auto pt-4 flex justify-between text-[10px] text-outline uppercase font-bold">
+<span>Oct 2023</span>
+<span>Jan 2024</span>
+<span>Apr 2024</span>
+<span>Jul 2024</span>
+<span>Present</span>
+</div>
+</div>
+</div>
+<!-- Detailed Stats Table (Recent Performance) -->
+<div class="glass-panel rounded-xl overflow-hidden mb-section-gap">
+<div class="p-stack-md border-b border-outline-variant/10">
+<h4 class="font-headline-md text-on-surface">Improvement Breakdown</h4>
+</div>
+<table class="w-full text-left font-body-base">
+<thead class="bg-surface-container-high/50 text-on-surface-variant font-label-caps">
+<tr>
+<th class="px-6 py-4">Skill Dimension</th>
+<th class="px-6 py-4">Current Value</th>
+<th class="px-6 py-4">Target</th>
+<th class="px-6 py-4">Trend</th>
+<th class="px-6 py-4">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">keyboard_capslock</span>
+                            Capitalization Accuracy
+                        </td>
+<td class="px-6 py-4">94.2%</td>
+<td class="px-6 py-4">98.0%</td>
+<td class="px-6 py-4 text-primary font-bold">+1.8%</td>
+<td class="px-6 py-4"><span class="px-2 py-1 bg-primary/10 text-primary text-[10px] rounded uppercase font-bold">Progressing</span></td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary">alternate_email</span>
+                            Symbol Speed
+                        </td>
+<td class="px-6 py-4">42 WPM</td>
+<td class="px-6 py-4">50 WPM</td>
+<td class="px-6 py-4 text-tertiary font-bold">+4.0%</td>
+<td class="px-6 py-4"><span class="px-2 py-1 bg-tertiary/10 text-tertiary text-[10px] rounded uppercase font-bold">Improving</span></td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-error">backspace</span>
+                            Error Recovery
+                        </td>
+<td class="px-6 py-4">0.8s</td>
+<td class="px-6 py-4">0.5s</td>
+<td class="px-6 py-4 text-error font-bold">-0.2s</td>
+<td class="px-6 py-4"><span class="px-2 py-1 bg-error/10 text-error text-[10px] rounded uppercase font-bold">Lagging</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+<!-- Footer Integration -->
+<footer class="ml-64 border-t border-outline-variant/10 bg-background dark:bg-background py-section-gap">
+<div class="flex flex-col md:flex-row justify-between items-center px-gutter max-w-container-max mx-auto text-on-surface-variant font-label-caps">
+<div class="mb-4 md:mb-0">
+<span class="font-headline-md text-headline-md text-on-surface tracking-tighter">Kinetic</span>
+<p class="mt-2 opacity-50">© 2024 Kinetic Typing. All rights reserved.</p>
+</div>
+<div class="flex gap-8">
+<a class="hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms</a>
+<a class="hover:text-primary transition-colors" href="#">Github</a>
+<a class="hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+</div>
+</footer>
+<script>
+        // Optional: Simple animation for page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('main > div, header');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Toggle mobile menu logic (though SideNav is desktop focused here)
+        // Add interactive hover effects to charts
+        const chartPaths = document.querySelectorAll('svg path');
+        chartPaths.forEach(path => {
+            path.addEventListener('mouseenter', () => {
+                path.style.strokeWidth = '4';
+            });
+            path.addEventListener('mouseleave', () => {
+                path.style.strokeWidth = '3';
+            });
+        });
+    </script>
+</body></html>

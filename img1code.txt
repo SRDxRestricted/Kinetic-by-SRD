@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kinetic | Initializing...</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @import url('https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css');
+        
+        body {
+            background-color: #0B0F14;
+            color: #e1e2ec;
+            overflow: hidden;
+        }
+
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .letter-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); opacity: 0.3; }
+            50% { transform: translateY(-20px); opacity: 1; }
+        }
+
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        .kinetic-text span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px) scale(0.8);
+            filter: blur(10px);
+            animation: assemble 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes assemble {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        .keyboard-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 3s ease-out forwards;
+        }
+
+        @keyframes draw {
+            to { stroke-dashoffset: 0; }
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#002e6a",
+                    "inverse-surface": "#e1e2ec",
+                    "surface-variant": "#32353c",
+                    "primary": "#adc6ff",
+                    "surface-bright": "#363941",
+                    "primary-fixed-dim": "#adc6ff",
+                    "surface-tint": "#adc6ff",
+                    "secondary-container": "#434a53",
+                    "on-tertiary-container": "#461f00",
+                    "on-tertiary-fixed": "#311400",
+                    "on-error": "#690005",
+                    "on-primary-fixed": "#001a42",
+                    "on-secondary-fixed-variant": "#404750",
+                    "on-primary-fixed-variant": "#004395",
+                    "inverse-on-surface": "#2e3038",
+                    "primary-container": "#4d8eff",
+                    "inverse-primary": "#005ac2",
+                    "surface-container-lowest": "#0b0e15",
+                    "background": "#10131a",
+                    "on-tertiary-fixed-variant": "#723600",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed": "#dce3ee",
+                    "on-tertiary": "#502400",
+                    "on-secondary": "#2a313a",
+                    "surface-container-high": "#272a31",
+                    "tertiary": "#ffb786",
+                    "tertiary-fixed": "#ffdcc6",
+                    "error-container": "#93000a",
+                    "surface-container-low": "#191b23",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "on-background": "#e1e2ec",
+                    "on-surface-variant": "#c2c6d6",
+                    "secondary-fixed-dim": "#c0c7d2",
+                    "outline-variant": "#424754",
+                    "surface-dim": "#10131a",
+                    "on-primary-container": "#00285d",
+                    "surface": "#10131a",
+                    "tertiary-container": "#df7412",
+                    "primary-fixed": "#d8e2ff",
+                    "surface-container-highest": "#32353c",
+                    "outline": "#8c909f",
+                    "on-secondary-container": "#b2b9c4",
+                    "secondary": "#c0c7d2",
+                    "on-surface": "#e1e2ec",
+                    "surface-container": "#1d2027",
+                    "on-secondary-fixed": "#151c24"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "container-max": "1200px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px",
+                    "section-gap": "64px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "body-base": ["Geist", "sans-serif"],
+                    "display-lg": ["Geist", "sans-serif"],
+                    "label-caps": ["Geist", "sans-serif"],
+                    "mono-typing": ["JetBrains Mono", "monospace"],
+                    "headline-md": ["Geist", "sans-serif"],
+                    "headline-md-mobile": ["Geist", "sans-serif"]
+            },
+            "fontSize": {
+                    "body-base": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "mono-typing": ["32px", {"lineHeight": "48px", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen">
+<div class="grain-overlay"></div>
+<!-- Background Atmospheric Effect -->
+<div class="absolute inset-0 z-0 overflow-hidden">
+<div class="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-primary/5 rounded-full blur-[120px]"></div>
+<div class="absolute -bottom-[20%] -right-[10%] w-[50%] h-[50%] bg-tertiary/5 rounded-full blur-[100px]"></div>
+</div>
+<!-- Main Content Container -->
+<main class="relative z-10 flex flex-col items-center gap-stack-lg w-full max-w-md px-gutter">
+<!-- Animated Keyboard Illustration -->
+<div class="relative w-48 h-32 mb-8">
+<svg class="w-full h-full opacity-40" fill="none" viewbox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+<rect class="keyboard-path text-primary" height="70" rx="8" stroke="currentColor" stroke-width="1.5" width="180" x="10" y="20"></rect>
+<path class="keyboard-path text-outline" d="M30 40H50M65 40H85M100 40H120M135 40H155M170 40H175" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path>
+<path class="keyboard-path text-outline" d="M25 60H45M60 60H80M95 60H140M155 60H175" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path>
+</svg>
+<!-- Floating Letters assembling Kinetic -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="kinetic-text flex gap-1 font-mono-typing text-primary text-[24px]">
+<span style="animation-delay: 0.1s">K</span>
+<span style="animation-delay: 0.2s">I</span>
+<span style="animation-delay: 0.3s">N</span>
+<span style="animation-delay: 0.4s">E</span>
+<span style="animation-delay: 0.5s">T</span>
+<span style="animation-delay: 0.6s">I</span>
+<span style="animation-delay: 0.7s">C</span>
+</div>
+</div>
+</div>
+<!-- Progress Indicator -->
+<div class="relative flex items-center justify-center">
+<svg class="w-24 h-24">
+<circle class="text-surface-container-highest" cx="48" cy="48" fill="transparent" r="44" stroke="currentColor" stroke-width="2"></circle>
+<circle class="progress-ring__circle text-primary" cx="48" cy="48" fill="transparent" id="progress-circle" r="44" stroke="currentColor" stroke-dasharray="276.46" stroke-dashoffset="276.46" stroke-linecap="round" stroke-width="2"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-mono-typing text-body-base text-on-surface" id="percentage-text">0%</span>
+</div>
+</div>
+<!-- Status Message -->
+<div class="text-center space-y-2">
+<p class="font-label-caps text-label-caps text-primary tracking-widest uppercase" id="loading-status">Calibrating Flow State</p>
+<div class="flex justify-center gap-1">
+<span class="w-1 h-1 rounded-full bg-primary animate-pulse"></span>
+<span class="w-1 h-1 rounded-full bg-primary animate-pulse" style="animation-delay: 0.2s"></span>
+<span class="w-1 h-1 rounded-full bg-primary animate-pulse" style="animation-delay: 0.4s"></span>
+</div>
+</div>
+</main>
+<!-- Bottom Quote Section -->
+<footer class="fixed bottom-12 w-full max-w-lg px-gutter text-center transition-opacity duration-1000 opacity-0" id="footer-quote">
+<div class="flex flex-col items-center gap-4">
+<span class="material-symbols-outlined text-outline/30 text-[20px]" style="font-variation-settings: 'FILL' 0;">format_quote</span>
+<p class="font-body-base text-body-base text-on-surface-variant italic leading-relaxed">
+                "The only way to do great work is to love what you do, and type it really, really fast."
+            </p>
+<p class="font-label-caps text-[10px] text-outline uppercase tracking-[0.2em]">— Kinetic Core</p>
+</div>
+</footer>
+<script>
+        // Progress Logic
+        const circle = document.getElementById('progress-circle');
+        const text = document.getElementById('percentage-text');
+        const status = document.getElementById('loading-status');
+        const footer = document.getElementById('footer-quote');
+        const radius = circle.r.baseVal.value;
+        const circumference = radius * 2 * Math.PI;
+
+        circle.style.strokeDasharray = `${circumference} ${circumference}`;
+        circle.style.strokeDashoffset = circumference;
+
+        function setProgress(percent) {
+            const offset = circumference - (percent / 100 * circumference);
+            circle.style.strokeDashoffset = offset;
+            text.innerText = `${Math.round(percent)}%`;
+        }
+
+        const statuses = [
+            "Initializing precision engine",
+            "Warming up mechanical switches",
+            "Synthesizing focus layers",
+            "Synchronizing leaderboard data",
+            "Ready for high-performance"
+        ];
+
+        let currentPercent = 0;
+        const duration = 4000; // 4 seconds loading
+        const startTime = Date.now();
+
+        function update() {
+            const elapsed = Date.now() - startTime;
+            currentPercent = Math.min((elapsed / duration) * 100, 100);
+            
+            setProgress(currentPercent);
+
+            // Update status text based on progress
+            const statusIndex = Math.floor((currentPercent / 101) * statuses.length);
+            if (statuses[statusIndex]) {
+                status.innerText = statuses[statusIndex];
+            }
+
+            if (currentPercent < 100) {
+                requestAnimationFrame(update);
+            } else {
+                status.innerText = "Access Granted";
+                status.classList.add('text-tertiary');
+                circle.classList.replace('text-primary', 'text-tertiary');
+                
+                // Final interaction hint
+                setTimeout(() => {
+                    document.body.style.cursor = 'pointer';
+                }, 500);
+            }
+        }
+
+        // Show footer after delay
+        setTimeout(() => {
+            footer.classList.remove('opacity-0');
+            footer.classList.add('opacity-100');
+        }, 1200);
+
+        // Start animation
+        requestAnimationFrame(update);
+
+        // Micro-interaction: Mouse movement subtle parallax on atmospheric light
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            document.querySelectorAll('.blur-full').forEach(el => {
+                el.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+    </script>
+</body></html>

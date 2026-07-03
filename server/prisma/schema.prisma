@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ── Phase 2: Authentication ──
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Phase 3 relations
+  tests         Test[]
+  personalBests PersonalBest[]
+  achievements  Achievement[]
+}
+
+// ── Phase 3: Typing Metrics ──
+
+enum TestMode {
+  TIME   // timed test (15s, 30s, 60s, 120s)
+  WORDS  // fixed word count (10, 25, 50, 100)
+  QUOTE  // quote mode
+  ZEN    // zen / practice mode
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+model Test {
+  id         String     @id @default(uuid())
+  userId     String
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Test configuration
+  mode       TestMode
+  duration   Int?       // seconds (for TIME mode)
+  wordCount  Int?       // (for WORDS mode)
+  difficulty Difficulty @default(MEDIUM)
+  language   String     @default("english")
+
+  // Core metrics
+  wpm        Float      // words per minute (net)
+  rawWpm     Float      // raw WPM before error penalty
+  accuracy   Float      // percentage (0–100)
+  consistency Float     // WPM consistency percentage
+
+  // Detailed metrics
+  correctChars   Int
+  incorrectChars Int
+  extraChars     Int
+  missedChars    Int
+  totalChars     Int
+
+  // Timing
+  timeTaken  Float      // actual seconds taken
+  startedAt  DateTime
+  completedAt DateTime  @default(now())
+
+  // Extra
+  isPersonalBest Boolean  @default(false)
+
+  @@index([userId])
+  @@index([completedAt])
+}
+
+model PersonalBest {
+  id       String   @id @default(uuid())
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Which category is this PB for?
+  mode     TestMode
+  duration Int?     // e.g. 60 (seconds) for TIME mode
+  wordCount Int?    // e.g. 50 for WORDS mode
+
+  // Best stats
+  wpm      Float
+  accuracy Float
+  testId   String   // reference to the actual Test
+
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, mode, duration, wordCount])
+  @@index([userId])
+}
+
+model Achievement {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Achievement details
+  key         String   // e.g. "first_test", "100wpm", "30_day_streak"
+  title       String
+  description String
+  icon        String?  // emoji or icon name
+
+  unlockedAt  DateTime @default(now())
+
+  @@unique([userId, key])
+  @@index([userId])
+}
